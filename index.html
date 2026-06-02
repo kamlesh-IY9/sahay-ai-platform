@@ -461,10 +461,24 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
             <div class="k" data-to="94" data-suf="%">94%</div>
             <div class="l">Team coverage today</div>
           </div>
-          <div class="card glass kpi">
-            <div class="top"><div class="ico b4"><span data-ic="calendar"></span></div><span class="trend up">seasonal</span></div>
-            <div class="k" style="font-size:20px;margin-top:24px;margin-bottom:10px;font-weight:800;color:var(--ink)">Annual Leave</div>
-            <div class="l">Top leave category</div>
+          <div class="card glass kpi" style="padding:14px">
+            <div class="top"><div class="ico b4"><span data-ic="engage"></span></div><span class="trend up" style="color:var(--emerald)">94% active</span></div>
+            <div class="row" style="margin-top:16px;gap:6px;align-items:center;width:100%;justify-content:space-between">
+              <div style="flex:1">
+                <div style="font-size:11.5px;font-weight:700">Presence Trend</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:24px;margin-top:4px">
+                  <div style="height:90%;width:8px;background:var(--brand);border-radius:2px" title="Week 1: 90%"></div>
+                  <div style="height:95%;width:8px;background:var(--brand);border-radius:2px" title="Week 2: 95%"></div>
+                  <div style="height:80%;width:8px;background:var(--rose);border-radius:2px" title="Week 3: 80% (Vikram & Priya overlap)"></div>
+                  <div style="height:92%;width:8px;background:var(--brand);border-radius:2px" title="Week 4: 92%"></div>
+                  <div style="height:94%;width:8px;background:var(--brand);border-radius:2px" title="Week 5: 94%"></div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div class="k" style="font-size:16px;margin:0" data-to="6" data-suf="%">6%</div>
+                <div class="l" style="font-size:10px">Absence Rate</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -503,6 +517,24 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
                 <span><i style="background:rgba(16,185,129,0.15);border-radius:50%"></i> Active / WFH</span>
                 <span><i style="background:var(--amber);border-radius:50%"></i> Out (Planned)</span>
                 <span><i style="background:var(--rose);border-radius:50%"></i> Conflict / Under-staffed</span>
+              </div>
+            </div>
+
+            <!-- Interactive Date Explorer -->
+            <div class="card glass">
+              <div class="row between">
+                <h3 style="margin:0">🔍 Daily Coverage Explorer</h3>
+                <span class="badge ok">AI Copilot</span>
+              </div>
+              <p class="hint" style="margin-top:6px">Select any date in June 2026 to see planned leaves, expected presence, and dynamic team warnings.</p>
+              
+              <div style="margin-top:14px;margin-bottom:14px">
+                <label style="font-size:11px;font-weight:800;color:var(--soft);text-transform:uppercase;display:block;margin-bottom:6px">Select Date (June 2026)</label>
+                <select id="exploreDateSel" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--glass-strong);color:var(--ink);font-weight:600;outline:none"></select>
+              </div>
+              
+              <div class="note" id="exploreDateResult" style="padding:12px;border-radius:8px;background:var(--chip);color:var(--ink);border:1px solid var(--line)">
+                <!-- Dynamic result loaded here -->
               </div>
             </div>
           </div>
@@ -1494,6 +1526,7 @@ function renderLeaves() {
   }
   renderLedger(sel.value);
   renderCalendarHeatmap();
+  initExploreDate();
 }
 
 function renderLedger(name) {
@@ -1506,6 +1539,84 @@ function renderLedger(name) {
       <div style="font-size:11px;color:var(--muted);margin-top:4px">${b.taken} / ${b.total} taken</div>
     </div>
   `).join('');
+}
+
+function initExploreDate() {
+  const sel = document.getElementById('exploreDateSel');
+  if (sel && sel.options.length === 0) {
+    let options = '';
+    for(let i=1; i<=30; i++) {
+      const selected = i === 18 ? 'selected' : '';
+      options += `<option value="${i}" ${selected}>June ${i}, 2026</option>`;
+    }
+    sel.innerHTML = options;
+    sel.onchange = () => updateExploreDate(parseInt(sel.value));
+  }
+  if (sel) {
+    updateExploreDate(parseInt(sel.value || 18));
+  }
+}
+
+function updateExploreDate(day) {
+  const result = document.getElementById('exploreDateResult');
+  if (!result) return;
+  
+  // check leaves
+  const aishaOff = LEAVE_REQ.find(r=>r.name === 'Aisha Khan' && r.status.includes('Approved')) && (day>=12 && day<=14);
+  const vikramOff = LEAVE_REQ.find(r=>r.name === 'Vikram Seth' && r.status.includes('Approved')) && (day>=15 && day<=25);
+  const priyaOff = day>=18 && day<=20; // Priya Nair planned leave
+  
+  let out = [];
+  if (aishaOff) out.push({ name: "Aisha Khan", role: "AI Engineer", type: "Annual Leave" });
+  if (vikramOff) out.push({ name: "Vikram Seth", role: "Sr. Product Designer", type: "Paternity Leave" });
+  if (priyaOff) out.push({ name: "Priya Nair", role: "Lead Product Designer", type: "Annual Leave" });
+  
+  if (out.length === 0) {
+    result.innerHTML = `
+      <div style="font-weight:700;color:var(--emerald);display:flex;align-items:center;gap:6px">
+        ${svg('check')} Healthy Team Coverage (100%)
+      </div>
+      <p style="font-size:12px;margin-top:6px;color:var(--soft);line-height:1.4;margin-bottom:0">No employees are scheduled to be off on this date. Perfect time for critical releases and key planning sprints.</p>
+    `;
+  } else {
+    const isConflict = out.length >= 2;
+    const statusColor = isConflict ? 'var(--rose)' : 'var(--amber)';
+    const statusText = isConflict ? '⚠️ Critical Overlap / Under-staffed' : '✓ Standard Planned Absence';
+    const coveragePct = Math.round(((10 - out.length) / 10) * 100);
+    
+    let membersList = out.map(m => `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;font-size:12px">
+        <div style="font-weight:700">${m.name} <span style="font-size:10.5px;color:var(--soft);font-weight:400">(${m.role})</span></div>
+        <div class="badge ${m.type.includes('Paternity')?'med':'ok'}" style="font-size:10.5px;padding:2px 6px">${m.type}</div>
+      </div>
+    `).join('');
+    
+    let aiInsight = '';
+    if (isConflict) {
+      aiInsight = `
+        <div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:11.5px;color:var(--ink);line-height:1.4">
+          <b style="color:var(--rose)">AI Copilot Warning:</b> Multiple designers are out simultaneously (Vikram & Priya). Design team coverage drops to 0%. Engineering velocity may dip due to asset blockages. <b>Action:</b> Task re-routing or coverage delegation recommended.
+        </div>
+      `;
+    } else {
+      aiInsight = `
+        <div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:11.5px;color:var(--soft);line-height:1.4">
+          <b>AI Copilot Verdict:</b> Coverage is adequate. Tasks for ${out[0].name} are smoothly covered by secondary backups in the department.
+        </div>
+      `;
+    }
+    
+    result.innerHTML = `
+      <div style="font-weight:800;color:${statusColor};display:flex;align-items:center;gap:6px;font-size:13px">
+        ${statusText}
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:3px">${coveragePct}% expected presence today</div>
+      <div style="margin-top:10px;font-size:10px;font-weight:800;color:var(--soft);text-transform:uppercase;letter-spacing:0.05em">Absences on June ${day}</div>
+      ${membersList}
+      ${aiInsight}
+    `;
+  }
+  paintIcons(result);
 }
 
 function approveLeave(i) {
