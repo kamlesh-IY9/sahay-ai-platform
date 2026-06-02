@@ -322,6 +322,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
       <a data-v="home" class="active"><span class="ic" data-ic="dashboard"></span> Home</a>
       <a data-v="hire"><span class="ic" data-ic="recruit"></span> Hire</a>
       <a data-v="onboard"><span class="ic" data-ic="onboard"></span> Onboard</a>
+      <a data-v="leaves"><span class="ic" data-ic="calendar"></span> Leaves</a>
       <a data-v="ask"><span class="ic" data-ic="ask"></span> Ask Sahay</a>
       <a data-v="people"><span class="ic" data-ic="engage"></span> People</a>
       <div class="lbl">Admin</div>
@@ -440,6 +441,72 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
         </div>
         <div class="card glass" id="emailCard" style="display:none;margin-top:16px"><div class="row between"><h3 style="margin:0">Drafted welcome email</h3><span class="cite"><span data-ic="info"></span> draft · edit before sending</span></div><textarea class="email" id="emailBody" style="margin-top:12px;width:100%;min-height:210px;resize:vertical;font-family:inherit;outline:none" spellcheck="false"></textarea>
           <button class="btn sm" id="sendEmailBtn" style="margin-top:12px"><span data-ic="arrow"></span> Send welcome email</button></div>
+      </section>
+
+      <!-- LEAVES -->
+      <section class="view" id="leaves">
+        <div class="grid g4">
+          <div class="card glass kpi">
+            <div class="top"><div class="ico b1"><span data-ic="calendar"></span></div><span class="trend up" style="color:var(--brand)">active</span></div>
+            <div class="k" id="lActiveCount">2</div>
+            <div class="l">Pending approvals</div>
+          </div>
+          <div class="card glass kpi">
+            <div class="top"><div class="ico b2"><span data-ic="bolt"></span></div><span class="trend up">92% auto</span></div>
+            <div class="k" data-to="1.8" data-dec="1" data-suf="h">1.8h</div>
+            <div class="l">Avg. approval time</div>
+          </div>
+          <div class="card glass kpi">
+            <div class="top"><div class="ico b3"><span data-ic="users"></span></div><span class="trend flat">healthy</span></div>
+            <div class="k" data-to="94" data-suf="%">94%</div>
+            <div class="l">Team coverage today</div>
+          </div>
+          <div class="card glass kpi">
+            <div class="top"><div class="ico b4"><span data-ic="calendar"></span></div><span class="trend up">seasonal</span></div>
+            <div class="k" style="font-size:20px;margin-top:24px;margin-bottom:10px;font-weight:800;color:var(--ink)">Annual Leave</div>
+            <div class="l">Top leave category</div>
+          </div>
+        </div>
+
+        <div class="grid g2" style="margin-top:18px">
+          <!-- Left Column: Leave Approval Queue -->
+          <div class="card glass">
+            <h3>Leave requests</h3>
+            <p class="hint">Specialist agent pre-screens and analyzes team conflict &amp; policy rules.</p>
+            <div id="leaveRequestsQueue"></div>
+          </div>
+
+          <!-- Right Column: Balance & Coverage Calendar -->
+          <div class="grid" style="gap:20px;grid-template-columns:1fr">
+            <!-- Balance Check -->
+            <div class="card glass">
+              <h3>Leave balances</h3>
+              <p class="hint">Select an employee to view their detailed leave ledger</p>
+              <div class="row" style="gap:10px;margin-bottom:14px">
+                <select id="leaveEmployeeSel" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--glass-strong);color:var(--ink);font-weight:600;outline:none"></select>
+              </div>
+              <div id="leaveLedger" class="grid g3" style="gap:10px"></div>
+            </div>
+
+            <!-- Heatmap Coverage -->
+            <div class="card glass">
+              <h3>June 2026 coverage heatmap</h3>
+              <p class="hint">Team presence &amp; scheduled absences</p>
+              <div id="calendarHeatmap" style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;font-size:11px;font-weight:600;color:var(--muted)"></div>
+              <style>
+                .cal-day { transition: all 0.2s ease; }
+                .cal-day:hover { transform: scale(1.1); filter: brightness(0.95); }
+                .legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; margin-right: 12px; color: var(--soft); }
+                .legend i { width: 10px; height: 10px; display: inline-block; }
+              </style>
+              <div class="legend" style="margin-top:15px">
+                <span><i style="background:rgba(16,185,129,0.15);border-radius:50%"></i> Active / WFH</span>
+                <span><i style="background:var(--amber);border-radius:50%"></i> Out (Planned)</span>
+                <span><i style="background:var(--rose);border-radius:50%"></i> Conflict / Under-staffed</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ASK SAHAY -->
@@ -626,13 +693,16 @@ paintIcons();
 
 /* ---------- view routing ---------- */
 const VIEWS={home:["Home","Your AI people operations, at a glance"],hire:["Hire","Create a role; the Recruiter agent does the legwork"],
- onboard:["Onboard","From offer-accepted to fully set up, automatically"],ask:["Ask Sahay","Grounded answers — and help using the platform"],
+ onboard:["Onboard","From offer-accepted to fully set up, automatically"],
+ leaves:["Leaves","Manage team time-off, coverage, and policy compliance"],
+ ask:["Ask Sahay","Grounded answers — and help using the platform"],
  people:["People","Listen to & understand your people, fairly"],cc:["Control Center","Manage agents, governance, setup — your mission control"]};
 function go(v){document.querySelectorAll('.nav a').forEach(x=>x.classList.toggle('active',x.dataset.v===v));
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
  document.getElementById('vTitle').textContent=VIEWS[v][0];document.getElementById('vSub').textContent=VIEWS[v][1];
  document.querySelector('.scroll').scrollTop=0;
  runCounters(document.getElementById(v));
+ if(v==='leaves'){renderLeaves();}
  if(v==='people'){drawGauge();drawLine();}
  if(v==='hire'){renderRoles();renderKanban();}}
 document.querySelectorAll('.nav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
@@ -1282,8 +1352,198 @@ searchInput.addEventListener('input',doSearch);
 searchInput.addEventListener('focus',()=>{if(searchInput.value)doSearch();});
 document.addEventListener('click',e=>{if(!e.target.closest('.searchwrap'))sres.classList.remove('open');});
 
+/* ---------- leaves management ---------- */
+let LEAVE_REQ = [
+  {
+    name: "Vikram Seth",
+    role: "Senior Product Designer",
+    type: "Paternity Leave",
+    dates: "Jun 15 - Jun 25 (10 days)",
+    status: "Pending",
+    desc: "First child birth. Team coverage check: Priya is off Jun 18-20 (conflict!).",
+    insight: "⚠️ Conflict! Team coverage will drop to 50% on Jun 18-20. Re-routing tasks recommended.",
+    class: "med"
+  },
+  {
+    name: "Aisha Khan",
+    role: "AI Engineer",
+    type: "Annual Leave",
+    dates: "Jun 12 - Jun 14 (3 days)",
+    status: "Pending",
+    desc: "Family trip. Coverage check: No conflicts.",
+    insight: "✅ No conflicts. Team coverage remains at 100%. Aisha has 18 days balance remaining.",
+    class: "ok"
+  },
+  {
+    name: "Rahul Verma",
+    role: "Data Analyst",
+    type: "Sick Leave",
+    dates: "Jun 4 (1 day)",
+    status: "Auto-Approved",
+    desc: "Under the weather. Under 2 days policy.",
+    insight: "⚡ Auto-approved. Urgent sick leaves under 2 days bypass human approval.",
+    class: "ok"
+  }
+];
+
+const LEAVE_BALANCES = {
+  "Aisha Khan": [
+    { type: "Casual Leave", total: 12, taken: 4, remain: 8 },
+    { type: "Earned Leave", total: 15, taken: 4, remain: 11 },
+    { type: "Sick Leave", total: 10, taken: 2, remain: 8 }
+  ],
+  "Vikram Seth": [
+    { type: "Casual Leave", total: 12, taken: 6, remain: 6 },
+    { type: "Paternity Leave", total: 15, taken: 0, remain: 15 },
+    { type: "Sick Leave", total: 10, taken: 3, remain: 7 }
+  ],
+  "Rahul Verma": [
+    { type: "Casual Leave", total: 12, taken: 8, remain: 4 },
+    { type: "Earned Leave", total: 15, taken: 5, remain: 10 },
+    { type: "Sick Leave", total: 10, taken: 6, remain: 4 }
+  ],
+  "Priya Nair": [
+    { type: "Casual Leave", total: 12, taken: 5, remain: 7 },
+    { type: "Earned Leave", total: 15, taken: 3, remain: 12 },
+    { type: "Sick Leave", total: 10, taken: 1, remain: 9 }
+  ]
+};
+
+function renderCalendarHeatmap() {
+  const days = ["M", "T", "W", "T", "F", "S", "S"];
+  const grid = document.getElementById('calendarHeatmap');
+  let h = days.map(d=>`<div style="font-weight:800;color:var(--soft);padding-bottom:6px">${d}</div>`).join('');
+  
+  for(let i=1; i<=30; i++) {
+    let bg = 'rgba(16,185,129,0.06)';
+    let color = 'var(--ink)';
+    let tooltipTxt = 'Full team present';
+    
+    // check leaves
+    const aishaOff = LEAVE_REQ.find(r=>r.name === 'Aisha Khan' && r.status.includes('Approved')) && (i>=12 && i<=14);
+    const vikramOff = LEAVE_REQ.find(r=>r.name === 'Vikram Seth' && r.status.includes('Approved')) && (i>=15 && i<=25);
+    const priyaOff = i>=18 && i<=20; // Priya Nair planned leave
+    
+    let offNames = [];
+    if (aishaOff) offNames.push("Aisha Khan (Annual)");
+    if (vikramOff) offNames.push("Vikram Seth (Paternity)");
+    if (priyaOff) offNames.push("Priya Nair (Annual)");
+    
+    if(offNames.length > 0) {
+      if(offNames.length >= 2) {
+        bg = 'var(--rose)';
+        color = '#fff';
+        tooltipTxt = `⚠️ Critical absence: ${offNames.join(', ')}`;
+      } else {
+        bg = 'var(--amber)';
+        color = 'var(--ink)';
+        tooltipTxt = `Planned absence: ${offNames[0]}`;
+      }
+    }
+    
+    h += `<div class="cal-day" style="background:${bg};color:${color};padding:8px 0;border-radius:50%;cursor:pointer;font-weight:700" 
+      onmouseenter="showTooltip(event, '${tooltipTxt}')" onmousemove="showTooltip(event, '${tooltipTxt}')" onmouseleave="hideTooltip()">${i}</div>`;
+  }
+  grid.innerHTML = h;
+}
+
+function renderLeaves() {
+  const pendingCount = LEAVE_REQ.filter(r => r.status === 'Pending').length;
+  const activeCountEl = document.getElementById('lActiveCount');
+  if (activeCountEl) {
+    activeCountEl.textContent = pendingCount;
+  }
+
+  document.getElementById('leaveRequestsQueue').innerHTML = LEAVE_REQ.map((r, i) => {
+    let actions = '';
+    if (r.status === 'Pending') {
+      actions = `
+        <div class="row" style="gap:7px;margin-top:10px">
+          <button class="btn tiny ghost" onclick="rejectLeave(${i})">Reject</button>
+          <button class="btn tiny" onclick="approveLeave(${i})">Approve</button>
+        </div>
+      `;
+    } else {
+      const badgeCls = r.status.includes('Approved') ? 'ok' : 'roadmap';
+      actions = `
+        <div style="margin-top:10px"><span class="badge ${badgeCls}">${svg('check')} ${r.status}</span></div>
+      `;
+    }
+
+    return `
+      <div class="approw" style="margin-top:14px;align-items:flex-start">
+        <div class="ico b1" style="width:38px;height:38px;font-size:17px;margin-top:2px">${svg('calendar')}</div>
+        <div style="flex:1">
+          <div style="font-size:13.5px;font-weight:700">${r.name} · <span style="font-size:12px;color:var(--muted)">${r.role}</span></div>
+          <div style="font-size:12px;font-weight:600;color:var(--brand);margin-top:3px">${r.type} · ${r.dates}</div>
+          <div style="font-size:12px;color:var(--soft);margin-top:3px">${r.desc}</div>
+          <div class="note" style="margin-top:8px;padding:8px 10px;border-radius:8px;font-size:11.5px;background:var(--chip);color:var(--ink)">
+            ${r.insight}
+          </div>
+          ${actions}
+        </div>
+      </div>
+    `;
+  }).join('');
+  paintIcons(document.getElementById('leaveRequestsQueue'));
+
+  const sel = document.getElementById('leaveEmployeeSel');
+  if (sel.options.length === 0) {
+    sel.innerHTML = Object.keys(LEAVE_BALANCES).map(name => `<option value="${name}">${name}</option>`).join('');
+    sel.onchange = () => renderLedger(sel.value);
+  }
+  renderLedger(sel.value);
+  renderCalendarHeatmap();
+}
+
+function renderLedger(name) {
+  const ledger = document.getElementById('leaveLedger');
+  const data = LEAVE_BALANCES[name] || [];
+  ledger.innerHTML = data.map(b => `
+    <div class="card glass" style="padding:12px;text-align:center;border-color:var(--line)">
+      <div style="font-size:11px;font-weight:800;color:var(--soft);text-transform:uppercase">${b.type}</div>
+      <div class="k" style="font-size:24px;margin-top:8px;background:none;-webkit-text-fill-color:initial;color:var(--brand)">${b.remain}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">${b.taken} / ${b.total} taken</div>
+    </div>
+  `).join('');
+}
+
+function approveLeave(i) {
+  const r = LEAVE_REQ[i];
+  r.status = "Approved by You";
+  
+  if (r.name === "Vikram Seth" && r.type === "Paternity Leave") {
+    const bal = LEAVE_BALANCES["Vikram Seth"].find(b => b.type === "Paternity Leave");
+    if (bal) {
+      bal.taken += 10;
+      bal.remain -= 10;
+    }
+  } else if (r.name === "Aisha Khan" && r.type === "Annual Leave") {
+    const bal = LEAVE_BALANCES["Aisha Khan"].find(b => b.type === "Earned Leave");
+    if (bal) {
+      bal.taken += 3;
+      bal.remain -= 3;
+    }
+  }
+
+  AUDIT.unshift(["Leave & Attendance", `Approved ${r.name}'s ${r.type}`, "human approval", "now"]);
+  renderAudit();
+  renderLeaves();
+  toast(`Approved ${r.name}'s ${r.type} leave`, 'check');
+}
+
+function rejectLeave(i) {
+  const r = LEAVE_REQ[i];
+  r.status = "Rejected";
+  AUDIT.unshift(["Leave & Attendance", `Rejected ${r.name}'s ${r.type}`, "human action", "now"]);
+  renderAudit();
+  renderLeaves();
+  toast(`Leave rejected for ${r.name}`, 'close');
+}
+
 /* ---------- init ---------- */
 renderWorklist();renderRoles();renderKanban();renderJoiners();pickJoiner(0);renderDocs();
+renderLeaves();
 runCounters(document.getElementById('home'));
 </script>
 </body>

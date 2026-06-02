@@ -110,6 +110,20 @@ The employee directory and people analytics:
 
 ---
 
+### 📅 Leaves Tab
+The leave and attendance management command center powered by the Leave & Attendance agent:
+
+| Feature | How it works |
+|---------|--------------|
+| **Leave requests queue** | Lists pending leave requests with AI-generated pre-screening, policy rules checking, and dynamic team conflict warnings (e.g. Vikram Seth's paternity leave conflict with Priya Nair's annual leave). |
+| **Interactive Approvals** | Approve or Reject button actions. Approving a leave dynamically subtracts days from the employee's balance ledger, triggers a success toast, updates the coverage calendar, and writes to the Governance Audit Log in real time. |
+| **Balance Ledger** | Select an employee from the dropdown list to see their live remaining and taken days (Casual Leave, Earned Leave, Sick Leave, Paternity Leave). |
+| **Coverage Heatmap Calendar** | A beautifully rendered visual presence calendar for June 2026. Green indicates full presence, Amber indicates a single planned absence, and **Rose (Red) indicates critical overlaps (under-staffed days)** that update automatically as requests are approved. |
+
+> **How to check:** Click "Leaves" → check the pending queue → select different employees in the dropdown to view balances → click **Approve** on Vikram Seth's request and watch the calendar heatmap automatically highlight June 18–20 in **red** due to the overlap with Priya's leave!
+
+---
+
 ### ⚙️ Control Center Tab
 The admin's command center with 5 sub-panels:
 
@@ -333,6 +347,15 @@ Use this checklist when demonstrating the mockup to stakeholders:
 - [ ] Click **"Generate plan"** → loading animation plays
 - [ ] Week-1 checklist appears with checkable items
 - [ ] Welcome email preview is editable
+
+### Leaves Tab
+- [ ] Leaves sidebar navigation tab is visible and clickable
+- [ ] KPI cards animate with count-up numbers on load
+- [ ] Select different employees in the dropdown → leave balances ledger cards update dynamically
+- [ ] Under-staffed calendar heatmap renders June 2026 dates (Priya Nair off on Jun 18-20 is amber)
+- [ ] Click **"Approve"** on Vikram Seth's Paternity Leave request → balance updates, toast confirms
+- [ ] Calendar heatmap dynamically colors June 15-25 as amber, and **June 18-20 as red** (due to overlap conflict warning with Priya Nair!)
+- [ ] Go to **Control Center → Governance** → verify the human approval is written to the audit log trail in real-time
 
 ### Ask Sahay Tab
 - [ ] Chat interface loads with suggestion chips
