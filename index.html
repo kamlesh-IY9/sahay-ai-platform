@@ -309,11 +309,67 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 .kdoc{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--glass);margin-top:10px;transition:all 0.2s}
 .kdoc:hover{border-color:var(--brand);box-shadow:var(--shadow-sm)}
 .chart-tooltip{position:absolute;padding:6px 10px;background:var(--glass-strong);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);font-size:11.5px;color:var(--ink);pointer-events:none;opacity:0;transition:opacity 0.12s ease,transform 0.12s ease;transform:translate(-50%,-120%);z-index:9999;font-family:inherit}
-@media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.kanban{grid-template-columns:1fr}.g2,.g2e,.formgrid{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{display:none}}
+/* ===== RESPONSIVE ===== */
+/* hamburger + nav backdrop (hidden on desktop) */
+.hamburger{display:none;width:42px;height:42px;border:1px solid var(--line);background:var(--glass-strong);border-radius:12px;align-items:center;justify-content:center;color:var(--ink);cursor:pointer;padding:0;flex-shrink:0;transition:all .2s}
+.hamburger:hover{background:var(--chip);color:var(--brand)}
+.hamburger svg.i{font-size:20px}
+.navscrim{position:fixed;inset:0;background:rgba(8,10,22,.5);backdrop-filter:blur(4px);z-index:65;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+.app.nav-open .navscrim{opacity:1;visibility:visible}
+
+/* tablet (≤1080): collapse grids, keep desktop sidebar */
+@media(max-width:1080px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}.g2,.g2e,.formgrid{grid-template-columns:1fr}}
+
+/* mobile nav (≤900): sidebar becomes a slide-in drawer */
+@media(max-width:900px){
+  .app{grid-template-columns:1fr;height:100dvh}
+  .hamburger{display:flex}
+  .side{position:fixed;top:0;left:0;height:100dvh;width:280px;max-width:86vw;margin:0;border-radius:0 18px 18px 0;z-index:70;
+    transform:translateX(-105%);transition:transform .34s cubic-bezier(.16,1,.3,1)}
+  .app.nav-open .side{transform:none;box-shadow:0 0 60px rgba(0,0,0,.32)}
+  .main{height:100dvh}
+}
+
+/* phone (≤640): condense everything */
+@media(max-width:640px){
+  .topbar{padding:14px 16px 10px;gap:9px}
+  .htitle{font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hsub{display:none}
+  .topbar>div:nth-child(2){min-width:0}
+  .searchwrap,#modelBtn{display:none}
+  .iconbtn{width:40px;height:40px}
+  .scroll{padding:16px 14px 96px}
+  .g4{grid-template-columns:1fr 1fr}
+  .card{padding:16px;border-radius:14px}
+  .k{font-size:26px}
+  .sectitle{margin:20px 4px 10px}
+  .overlay,.drawer{height:100dvh}
+  .drawer{width:100%;max-width:100%;right:-100%;padding:20px 18px;border-radius:0}
+  .kanban{display:flex;flex-direction:column;gap:12px}
+  .kanban .kcol{min-height:auto}
+  .kanban .kcard{margin-bottom:0}
+  .kanban .kcol > .kcard + .kcard{margin-top:8px}
+  .scroll table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .seg{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;max-width:100%}
+  .seg button{flex-shrink:0}
+  .role,.kdoc{flex-wrap:wrap}
+  #cc-knowledge .row.between{flex-wrap:wrap;gap:10px}
+  .chat{height:calc(100dvh - 156px)}
+  .helppanel{left:12px;right:12px;width:auto;bottom:84px}
+  .fab{right:16px;bottom:16px;height:48px;padding:0 16px;font-size:13px}
+  .toasts{left:12px;right:12px}
+  .menu{min-width:0;width:calc(100vw - 32px);max-width:300px}
+  .sresults{width:calc(100vw - 28px);max-width:340px}
+  .nav a{padding:13px 14px}
+}
+
+/* small phones (≤360): KPIs single column */
+@media(max-width:360px){.g4{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="app">
+  <div class="navscrim" id="navScrim"></div>
   <!-- SIDEBAR -->
   <aside class="side">
     <div class="brand"><div class="logo">सं</div><div><h1>Sahay&nbsp;AI</h1><p>AI People Platform</p></div></div>
@@ -334,6 +390,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
   <!-- MAIN -->
   <main class="main">
     <div class="topbar">
+      <button class="hamburger" id="navToggle" aria-label="Open menu"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <div><div class="htitle" id="vTitle">Home</div><div class="hsub" id="vSub">Your AI people operations, at a glance</div></div>
       <div class="grow"></div>
       <div class="searchwrap"><div class="search glass"><span data-ic="search"></span> <input id="searchInput" placeholder="Search people, roles, policies…" autocomplete="off"/></div><div class="sresults" id="searchResults"></div></div>
@@ -736,8 +793,12 @@ function go(v){document.querySelectorAll('.nav a').forEach(x=>x.classList.toggle
  runCounters(document.getElementById(v));
  if(v==='leaves'){renderLeaves();}
  if(v==='people'){drawGauge();drawLine();}
- if(v==='hire'){renderRoles();renderKanban();}}
+ if(v==='hire'){renderRoles();renderKanban();}
+ document.querySelector('.app').classList.remove('nav-open');}
 document.querySelectorAll('.nav a').forEach(a=>a.onclick=()=>go(a.dataset.v));
+/* mobile menu toggle */
+document.getElementById('navToggle').onclick=()=>document.querySelector('.app').classList.toggle('nav-open');
+document.getElementById('navScrim').onclick=()=>document.querySelector('.app').classList.remove('nav-open');
 
 /* ---------- count-up ---------- */
 function runCounters(scope){(scope||document).querySelectorAll('.k[data-to]').forEach(el=>{
