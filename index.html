@@ -369,6 +369,18 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 @media(max-width:360px){.g4{grid-template-columns:1fr}}
 
   /* Premium CEO Presentation Styles */
+  .touch-drag-helper {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0.9;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transform: scale(1.02) rotate(2deg);
+    background: var(--glass-strong);
+    border: 1px solid var(--brand);
+    border-radius: 12px;
+    padding: 12px;
+  }
   .brand-logo {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -653,6 +665,18 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
                 .legend i { width: 10px; height: 10px; display: inline-block; }
               
   /* Premium CEO Presentation Styles */
+  .touch-drag-helper {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    opacity: 0.9;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    transform: scale(1.02) rotate(2deg);
+    background: var(--glass-strong);
+    border: 1px solid var(--brand);
+    border-radius: 12px;
+    padding: 12px;
+  }
   .brand-logo {
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -1067,10 +1091,10 @@ function delRole(i){const t=ROLES[i].title;ROLES.splice(i,1);if(selectedRole===t
 function selectRole(t){selectedRole=t;document.getElementById('roleName').textContent=t;renderKanban();document.getElementById('kanban').scrollIntoView({behavior:'smooth',block:'center'});}
 function renderKanban(){const k=document.getElementById('kanban');k.innerHTML=STAGES.map((st,si)=>{
   const inCol=CANDS.map((c,ci)=>({c,ci})).filter(o=>o.c.stage===si);
-  return `<div class="kcol" ondragover="allowDropCand(event)" ondragleave="leaveCol(event)" ondrop="dropCand(event, ${si})">
+  return `<div class="kcol" data-stage="${si}" ondragover="allowDropCand(event)" ondragleave="leaveCol(event)" ondrop="dropCand(event, ${si})">
     <h4>${st}<span>${inCol.length}</span></h4>
     ${inCol.map(o=>`
-      <div class="kcard" draggable="true" ondragstart="dragCand(event, ${o.ci})" ondragend="dragEndCand(event)" style="cursor:pointer" onclick="openCandidate(${o.ci})">
+      <div class="kcard" draggable="true" ondragstart="dragCand(event, ${o.ci})" ondragend="dragEndCand(event)" ontouchstart="touchStartCand(event, ${o.ci})" ontouchmove="touchMoveCand(event)" ontouchend="touchEndCand(event)" style="cursor:pointer" onclick="openCandidate(${o.ci})">
         <div class="nm">${o.c.name}</div>
         <div style="display:flex;align-items:center;margin-top:6px;gap:6px;flex-wrap:wrap">
           <span class="ft">Fit ${o.c.fit}%</span>
