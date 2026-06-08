@@ -497,7 +497,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
         <div class="card glass" style="margin-bottom:16px"><div class="row between"><h3 style="margin:0">Needs your attention</h3><span class="cite"><span data-ic="info"></span> your worklist today</span></div>
           <div id="worklist" style="margin-top:6px"></div></div>
         <div class="grid g4">
-          <div class="card glass kpi"><div class="top"><div class="ico b1"><span data-ic="clock"></span></div><span class="trend up">faster</span></div><div class="k" data-to="68" data-pre="−" data-suf="%">0</div><div class="l">Time-to-productivity</div></div>
+          <div class="card glass kpi"><div class="top"><div class="ico b1"><span data-ic="clock"></span></div><span class="trend up">faster</span></div><div class="k" data-to="68" data-pre="" data-suf="%">0</div><div class="l">Time-to-productivity</div></div>
           <div class="card glass kpi"><div class="top"><div class="ico b2"><span data-ic="ticket"></span></div><span class="trend up">▲ 11%</span></div><div class="k" data-to="82" data-suf="%">0</div><div class="l">Tickets auto-resolved</div></div>
           <div class="card glass kpi"><div class="top"><div class="ico b3"><span data-ic="bolt"></span></div><span class="trend flat">26h → 3s</span></div><div class="k" data-to="3.4" data-dec="1" data-suf="s">0</div><div class="l">Avg. response time</div></div>
           <div class="card glass kpi"><div class="top"><div class="ico b4"><span data-ic="engage"></span></div><span class="trend up">▲ from −5</span></div><div class="k" data-to="51" data-pre="+">0</div><div class="l">Employee eNPS</div></div>
@@ -511,9 +511,9 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
         </div>
         <div class="card glass" style="margin-top:16px"><div class="row between"><h3 style="margin:0">Business impact</h3><span class="cite"><span data-ic="info"></span> industry benchmark · to be validated in pilot</span></div>
           <div class="grid g3" style="margin-top:14px">
-            <div><div class="k" style="font-size:24px;color:var(--brand)" data-to="77" data-pre="−" data-suf="%">0</div><div class="l">Manual HR workload</div></div>
+            <div><div class="k" style="font-size:24px;color:var(--brand)" data-to="77" data-pre="" data-suf="%">0</div><div class="l">Manual HR workload</div></div>
             <div><div class="k" style="font-size:24px;color:var(--emerald)">48h → same-day</div><div class="l">Onboarding cycle</div></div>
-            <div><div class="k" style="font-size:24px;color:var(--cyan)" data-to="95" data-pre="−" data-suf="%">0</div><div class="l">Data-entry errors</div></div>
+            <div><div class="k" style="font-size:24px;color:var(--cyan)" data-to="95" data-pre="" data-suf="%">0</div><div class="l">Data-entry errors</div></div>
           </div></div>
       </section>
 
@@ -536,7 +536,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
                 <div class="field"><label>Type</label><select id="jType"><option>Full-time</option><option>Contract</option><option>Internship</option></select></div>
               </div>
               <div class="field"><label>Key skills</label><input id="jSkills" placeholder="e.g. Python, SQL, communication"/></div>
-              <div class="field"><label>Job description <span style="color:var(--soft);font-weight:500">(write it, or let Sahay draft it)</span></label><textarea id="jDesc" placeholder="Paste a description, or click ‘Draft with AI’."></textarea></div>
+              <div class="field"><label>Job description <span style="color:var(--soft);font-weight:500">(write it, or let Raapid draft it)</span></label><textarea id="jDesc" placeholder="Paste a description, or click ‘Draft with AI’."></textarea></div>
               <div class="row between" style="margin-top:18px">
                 <button class="btn ghost sm" id="draftJdBtn"><span data-ic="spark"></span> Draft with AI</button>
                 <div class="row" style="gap:9px">
@@ -867,7 +867,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
             <div class="grid g3" style="margin-top:14px">
               <div class="anode"><b>Employees</b><p>Ask in <b>Slack / Teams / email</b> — no new app to learn</p></div>
               <div class="anode"><b>Managers</b><p>Approve leave & actions <b>on mobile</b>, in seconds</p></div>
-              <div class="anode"><b>HR</b><p>Runs &amp; oversees everything <b>here</b> in Sahay</p></div>
+              <div class="anode"><b>HR</b><p>Runs &amp; oversees everything <b>here</b> in Raapid</p></div>
             </div>
           </div>
           <div class="grid g2" style="margin-top:16px">
@@ -1237,7 +1237,7 @@ const QA=[{k:["create","new job","post","open a role","add a job"],a:"To create 
  {k:["add hire","new hire","onboard"],a:"Go to <b>Onboard → Add hire</b>, enter name/role/start date, pick the joiner, then <b>Generate</b> — I'll build the plan, welcome email and provisioning.",c:"How-to"},
  {k:["candidate","shortlist","pipeline","move"],a:"In <b>Hire</b>, open a role's candidates and move them along <b>Applied → Screening → Interview → Offer</b>. I suggest a shortlist; you decide — I never auto-reject.",c:"How-to"},
  {k:["approve","governance","risk"],a:"Anything risky waits in <b>Control Center → Governance</b> for your approval — Approve or send it back. Everything is logged to the audit trail.",c:"How-to"},
- {k:["compare","leena","competitor","moveworks"],a:"See <b>Control Center → Compare</b> for an honest read of Sahay vs Leena AI, Moveworks and building in-house.",c:"How-to"},
+ {k:["compare","leena","competitor","moveworks"],a:"See <b>Control Center → Compare</b> for an honest read of Raapid vs Leena AI, Moveworks and building in-house.",c:"How-to"},
  {k:["leave","casual","holiday"],a:"You have <b>8 casual</b> and <b>11 earned</b> leaves left this year. Casual needs 1-day notice.",c:"Leave-Policy.pdf · §3.2"},
  {k:["payroll","salary","payslip","tax"],a:"Payslips drop on the <b>1st of each month</b> on the portal. Want me to raise a payroll ticket?",c:"Payroll-FAQ.md"},
  {k:["wfh","remote","hybrid"],a:"RAAPID is <b>hybrid</b>: 3 days in-office, 2 flexible.",c:"Workplace-Policy · §5"},
@@ -1246,9 +1246,9 @@ const QA=[{k:["create","new job","post","open a role","add a job"],a:"To create 
  {k:["insurance","health","medical","benefit"],a:"You're covered by a <b>₹5L family floater</b> mediclaim from day one, plus an EAP.",c:"Benefits-Guide.pdf"}];
 const fb={a:"I can help you <b>use Raapid</b> (try “how do I create a job?”) or answer HR questions (leave, payroll, IT, benefits) — all grounded in RAAPID's documents.",c:"Assistant"};
 const msgs=document.getElementById('msgs');
-function bubble(t,who){const d=document.createElement('div');d.className='msg '+(who==='me'?'me':'bot');d.innerHTML=(who==='me'?'':`<div class="who">${svg('ask')} Sahay</div>`)+t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
+function bubble(t,who){const d=document.createElement('div');d.className='msg '+(who==='me'?'me':'bot');d.innerHTML=(who==='me'?'':`<div class="who">${svg('ask')} Raapid</div>`)+t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
 function answer(q){const t=q.toLowerCase(),hit=QA.find(x=>x.k.some(k=>t.includes(k)))||fb;const ty=bubble('<span class="typing"><i></i><i></i><i></i></span>','bot');
- setTimeout(()=>{ty.innerHTML=`<div class="who">${svg('ask')} Sahay</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div>`;msgs.scrollTop=msgs.scrollHeight;},650);}
+ setTimeout(()=>{ty.innerHTML=`<div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div>`;msgs.scrollTop=msgs.scrollHeight;},650);}
 function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 const sg=["How do I create a job?","Add a new hire","How many casual leaves do I have?","What's the WFH policy?"];
@@ -1529,7 +1529,7 @@ const INT=[["Email — Gmail / Outlook","ok","Connected"],["Slack","ok","Connect
 document.getElementById('integrations').innerHTML=INT.map(i=>{const cls=i[1]==='ok'?'ok':i[1]==='road'?'roadmap':'wait';return `<div class="row between" style="padding:11px 0;border-bottom:1px solid var(--line)"><div class="row"><span class="dot" style="background:${i[1]==='ok'?'var(--emerald)':i[1]==='road'?'var(--amber)':'var(--soft)'}"></span> <b style="font-size:13.5px">${i[0]}</b></div>${i[1]==='wait'?`<button class="btn ghost tiny" onclick="this.outerHTML='<span class=\\'badge ok\\'>Connected</span>';toast('Integration connected (demo)','plug')">Connect</button>`:`<span class="badge ${cls}">${i[2]}</span>`}</div>`}).join('');
 
 /* ---------- compare ---------- */
-const CMP={cols:["Capability","Sahay (ours)","Leena AI","Moveworks","Build in-house"],
+const CMP={cols:["Capability","Raapid (ours)","Leena AI","Moveworks","Build in-house"],
  rows:[["Time to a useful pilot",["y2","weeks"],["p","weeks–months"],["p","months"],["n","months+"]],
   ["Annual cost",["y2","lean / tailored"],["n","$100K+"],["n","enterprise $$$"],["p","eng cost"]],
   ["Tailored to RAAPID",["y2",""],["p","configurable"],["p","configurable"],["y2",""]],
