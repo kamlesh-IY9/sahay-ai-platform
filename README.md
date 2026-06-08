@@ -1,14 +1,14 @@
-# Sahay AI — People Platform
+# Raapid AI — People Platform
 
 > An interactive AI-powered HR platform prototype built for **RAAPID**.  
-> **[🚀 View Live Demo →](https://kamlesh-IY9.github.io/sahay-ai-platform)**  
-> **[📄 Download Product Guide (PDF) →](https://kamlesh-IY9.github.io/sahay-ai-platform/Sahay_AI_Platform_Guide.pdf)**
+> **[🚀 View Live Demo →](https://kamlesh-IY9.github.io/raapid-ai-platform)**  
+> **[📄 Download Product Guide (PDF) →](https://kamlesh-IY9.github.io/raapid-ai-platform/Raapid_AI_Platform_Guide.pdf)**
 
 ---
 
-## What is Sahay AI?
+## What is Raapid AI?
 
-Sahay AI is a full-lifecycle **AI People Platform** that replaces fragmented HR tools with a single copilot + agent fleet automating hiring, onboarding, employee support, payroll, engagement, and governance — with humans always in control.
+Raapid AI is a full-lifecycle **AI People Platform** that replaces fragmented HR tools with a single copilot + agent fleet automating hiring, onboarding, employee support, payroll, engagement, and governance — with humans always in control.
 
 ## Key Features
 
@@ -17,7 +17,7 @@ Sahay AI is a full-lifecycle **AI People Platform** that replaces fragmented HR 
 | 🏠 **Home Dashboard** | Real-time KPIs, HR request bar chart, live agent activity feed |
 | 💼 **Hire Tab** | Kanban pipeline with drag & drop, AI shortlisting, candidate drawers |
 | 🚀 **Onboard Tab** | AI-generated Week-1 plans, welcome email editor, provisioning pipeline |
-| 💬 **Ask Sahay** | Grounded chatbot with policy citations |
+| 💬 **Ask Raapid** | Grounded chatbot with policy citations |
 | 👥 **People Tab** | eNPS gauge, sentiment trend chart, talent radar |
 | ⚙️ **Control Center** | Agent fleet, governance queue, knowledge base, compare vs competitors |
 
@@ -39,8 +39,8 @@ Just open `index.html` in Chrome or Edge. No server needed.
 
 ```bash
 # Clone
-git clone https://github.com/kamlesh-IY9/sahay-ai-platform.git
-cd sahay-ai-platform
+git clone https://github.com/kamlesh-IY9/raapid-ai-platform.git
+cd raapid-ai-platform
 
 # Open in browser
 open index.html   # macOS
@@ -52,9 +52,9 @@ xdg-open index.html  # Linux
 | File | Description |
 |------|-------------|
 | `index.html` | Full interactive prototype (self-contained, no dependencies) |
-| `Sahay_AI_Platform_Guide.pdf` | Product walkthrough + competitive analysis PDF |
-| `Sahay_AI_Platform_Guide.md` | Source markdown for the guide |
+| `Raapid_AI_Platform_Guide.pdf` | Product walkthrough + competitive analysis PDF |
+| `Raapid_AI_Platform_Guide.md` | Source markdown for the guide |
 
 ---
 
-*Built for RAAPID · Sahay AI v0.4 · June 2026*
+*Built for RAAPID · Raapid AI v0.4 · June 2026*

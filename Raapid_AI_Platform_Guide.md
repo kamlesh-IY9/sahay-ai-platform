@@ -1,24 +1,24 @@
-# Sahay AI — People Platform
+# Raapid AI — People Platform
 ## Product Walkthrough & Competitive Analysis Guide
 ### Prepared for RAAPID · v0.4 Mockup · June 2026
 
 ---
 
 ## Table of Contents
-1. [What is Sahay AI?](#1-what-is-sahay-ai)
+1. [What is Raapid AI?](#1-what-is-raapid-ai)
 2. [Dashboard Walkthrough — Tab by Tab](#2-dashboard-walkthrough)
 3. [Agent Fleet — Live & Roadmap](#3-agent-fleet)
 4. [Architecture & How It Works](#4-architecture)
 5. [Security & Governance](#5-security--governance)
-6. [Competitive Analysis — Sahay vs Leena AI vs Moveworks vs Build In-House](#6-competitive-analysis)
+6. [Competitive Analysis — Raapid vs Leena AI vs Moveworks vs Build In-House](#6-competitive-analysis)
 7. [Business Impact — Key Metrics](#7-business-impact)
 8. [Interactive Mockup Checklist](#8-mockup-checklist)
 
 ---
 
-## 1. What is Sahay AI?
+## 1. What is Raapid AI?
 
-**Sahay AI** is a full-lifecycle AI People Platform built for RAAPID. It replaces fragmented HR tools with a single copilot + agent fleet that automates hiring, onboarding, employee support, payroll, engagement, and governance — with humans always in control.
+**Raapid AI** is a full-lifecycle AI People Platform built for RAAPID. It replaces fragmented HR tools with a single copilot + agent fleet that automates hiring, onboarding, employee support, payroll, engagement, and governance — with humans always in control.
 
 ### Core Principles
 | Principle | What it means |
@@ -82,7 +82,7 @@ The onboarding workflow powered by the Onboarding agent:
 
 ---
 
-### 💬 Ask Sahay Tab
+### 💬 Ask Raapid Tab
 The employee-facing AI chatbot:
 
 | Feature | How it works |
@@ -92,7 +92,7 @@ The employee-facing AI chatbot:
 | **Citation tags** | Clickable green citation badges (e.g., "Leave-Policy.pdf §3.2") |
 | **Suggestion chips** | Quick-reply buttons for common follow-up questions |
 
-> **How to check:** Click "Ask Sahay" → type a question like "How many casual leaves do I have?" → see the cited response.
+> **How to check:** Click "Ask Raapid" → type a question like "How many casual leaves do I have?" → see the cited response.
 
 ---
 
@@ -177,7 +177,7 @@ The admin's command center with 5 sub-panels:
            │
            ▼
 ┌──────────────────────┐
-│  Sahay Copilot       │ Understands intent, routes the task
+│  Raapid Copilot       │ Understands intent, routes the task
 └──────────┬───────────┘
            │
            ▼
@@ -206,7 +206,7 @@ The admin's command center with 5 sub-panels:
 ### Why This Design
 - **No new app to learn** — employees use Slack / Teams / email
 - **Managers approve** on mobile, in seconds
-- **HR runs & oversees** everything in Sahay's dashboard
+- **HR runs & oversees** everything in Raapid's dashboard
 - **Multi-model** — best model per task; switch providers with zero rework
 - **On-prem option** for sensitive data (Llama 3.1)
 
@@ -214,7 +214,7 @@ The admin's command center with 5 sub-panels:
 
 ## 5. Security & Governance
 
-| Area | How Sahay Handles It |
+| Area | How Raapid Handles It |
 |------|---------------------|
 | **Data residency** | All data stays in your tenant; no data sent to public model training |
 | **RAG grounding** | Answers cite your actual documents — no invented facts |
@@ -229,9 +229,9 @@ The admin's command center with 5 sub-panels:
 
 ## 6. Competitive Analysis
 
-### Sahay AI vs Leena AI vs Moveworks vs Build In-House
+### Raapid AI vs Leena AI vs Moveworks vs Build In-House
 
-| Capability | Sahay (Ours) | Leena AI | Moveworks | Build In-House |
+| Capability | Raapid (Ours) | Leena AI | Moveworks | Build In-House |
 |:-----------|:-------------|:---------|:----------|:---------------|
 | **Time to a useful pilot** | ✓✓ Weeks | ~ Weeks–months | ~ Months | ✗ Months+ |
 | **Annual cost** | ✓✓ Lean / tailored | ✗ $100K+ | ✗ Enterprise $$$ | ~ Eng cost |
@@ -251,7 +251,7 @@ The admin's command center with 5 sub-panels:
 - **Deeper out-of-the-box integrations** (HRIS, ITSM, payroll connectors ready)
 - **Established customer base** — lower perceived risk
 
-**Where Sahay wins:**
+**Where Raapid wins:**
 - **Cost** — significantly leaner pricing, tailored to RAAPID's scale
 - **Speed to pilot** — weeks, not months
 - **Tailored** — built specifically for RAAPID's processes, not generic
@@ -302,7 +302,7 @@ The admin's command center with 5 sub-panels:
 
 ## 7. Business Impact
 
-| Metric | Before Sahay | After Sahay | Change |
+| Metric | Before Raapid | After Raapid | Change |
 |--------|-------------|-------------|--------|
 | **Manual HR workload** | 100% manual | 23% manual | **−77%** |
 | **Onboarding cycle** | 48 hours | Same-day | **≈24x faster** |
@@ -360,7 +360,7 @@ Use this checklist when demonstrating the mockup to stakeholders:
 - [ ] Select **June 18** in the **Daily Coverage Explorer** dropdown → verify critical overlap status, out list, and AI Copilot staffing delegation recommended warning
 - [ ] Go to **Control Center → Governance** → verify the human approval is written to the audit log trail in real-time
 
-### Ask Sahay Tab
+### Ask Raapid Tab
 - [ ] Chat interface loads with suggestion chips
 - [ ] Type a question → bot responds with cited answer
 - [ ] Citations show green tags with policy references
@@ -394,8 +394,8 @@ Use this checklist when demonstrating the mockup to stakeholders:
 
 ## Quick Pitch (30-Second Elevator)
 
-> *"Sahay AI is RAAPID's own AI People Platform — one dashboard where 12 AI agents handle hiring, onboarding, employee queries, payroll checks, and engagement tracking. Every answer is grounded in your actual policies. Every risky action pauses for a human. You can swap AI models anytime. Your data never leaves your tenant. And it costs a fraction of Leena AI or Moveworks."*
+> *"Raapid AI is RAAPID's own AI People Platform — one dashboard where 12 AI agents handle hiring, onboarding, employee queries, payroll checks, and engagement tracking. Every answer is grounded in your actual policies. Every risky action pauses for a human. You can swap AI models anytime. Your data never leaves your tenant. And it costs a fraction of Leena AI or Moveworks."*
 
 ---
 
-*Document generated: June 2026 · Sahay AI v0.4 Mockup · Built for RAAPID*
+*Document generated: June 2026 · Raapid AI v0.4 Mockup · Built for RAAPID*
