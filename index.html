@@ -463,6 +463,74 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
   .bot-response {
     animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  /* Chat History Sidebar styles */
+  .chat-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-right: 1px solid var(--line);
+    padding-right: 16px;
+    width: 220px;
+    flex-shrink: 0;
+  }
+  .chat-history-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .chat-history-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+  }
+  .chat-history-item:hover {
+    background: var(--chip);
+    border-color: var(--line);
+  }
+  .chat-history-item.active {
+    background: var(--chip);
+    border-color: var(--brand);
+    font-weight: 600;
+  }
+  @media (max-width: 768px) {
+    .chat {
+      flex-direction: column !important;
+    }
+    .chat-sidebar {
+      width: 100% !important;
+      border-right: none !important;
+      border-bottom: 1px solid var(--line);
+      padding-right: 0 !important;
+      padding-bottom: 12px !important;
+      flex-direction: row !important;
+      overflow-x: auto;
+      white-space: nowrap;
+      align-items: center;
+    }
+    .chat-history-list {
+      flex-direction: row !important;
+      overflow-x: auto;
+      gap: 8px !important;
+    }
+    .chat-sidebar-title {
+      display: none !important;
+    }
+    .chat-history-item {
+      padding: 6px 12px !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -763,6 +831,74 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
   .bot-response {
     animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  /* Chat History Sidebar styles */
+  .chat-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-right: 1px solid var(--line);
+    padding-right: 16px;
+    width: 220px;
+    flex-shrink: 0;
+  }
+  .chat-history-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .chat-history-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+  }
+  .chat-history-item:hover {
+    background: var(--chip);
+    border-color: var(--line);
+  }
+  .chat-history-item.active {
+    background: var(--chip);
+    border-color: var(--brand);
+    font-weight: 600;
+  }
+  @media (max-width: 768px) {
+    .chat {
+      flex-direction: column !important;
+    }
+    .chat-sidebar {
+      width: 100% !important;
+      border-right: none !important;
+      border-bottom: 1px solid var(--line);
+      padding-right: 0 !important;
+      padding-bottom: 12px !important;
+      flex-direction: row !important;
+      overflow-x: auto;
+      white-space: nowrap;
+      align-items: center;
+    }
+    .chat-history-list {
+      flex-direction: row !important;
+      overflow-x: auto;
+      gap: 8px !important;
+    }
+    .chat-sidebar-title {
+      display: none !important;
+    }
+    .chat-history-item {
+      padding: 6px 12px !important;
+    }
+  }
+
 </style>
               <div class="legend" style="margin-top:15px">
                 <span><i style="background:rgba(16,185,129,0.15);border-radius:50%"></i> Active / WFH</span>
@@ -795,10 +931,17 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
       <!-- ASK SAHAY -->
       <section class="view" id="ask">
         <div class="card glass" style="padding:16px 18px">
-          <div class="chat">
-            <div class="msgs" id="msgs"></div>
-            <div class="suggest" id="suggest"></div>
-            <div class="composer"><input id="chatInput" placeholder="Ask anything — or ‘how do I create a job?’"/><button class="btn" id="sendBtn">Send <span data-ic="arrow"></span></button></div>
+          <div class="chat" style="display:flex; flex-direction:row; gap:16px;">
+            <div class="chat-sidebar">
+              <button class="btn" id="newChatBtn" style="justify-content:center; gap:6px; font-weight:600; width:100%;">+ New Chat</button>
+              <div class="chat-sidebar-title" style="font-size:11px; text-transform:uppercase; color:var(--soft); font-weight:700; margin-top:8px;">Recent Chats</div>
+              <div class="chat-history-list" id="chatHistoryList"></div>
+            </div>
+            <div class="chat-main" style="flex:1; display:flex; flex-direction:column; min-width:0;">
+              <div class="msgs" id="msgs"></div>
+              <div class="suggest" id="suggest"></div>
+              <div class="composer"><input id="chatInput" placeholder="Ask anything — or ‘how do I create a job?’"/><button class="btn" id="sendBtn">Send <span data-ic="arrow"></span></button></div>
+            </div>
           </div>
         </div>
       </section>
@@ -1281,16 +1424,110 @@ const QA=[{k:["create","new job","post","open a role","add a job"],a:"To create 
  {k:["appraisal","promotion","review","cycle"],a:"Appraisals happen twice a year: H1 (October) and H2 (April). Self-evaluations open 2 weeks prior.",c:"Performance-Cycle.pdf"},
  {k:["notice period","resign","exit"],a:"Notice period is <b>60 days</b> for permanent employees. Can be waived/shortened under manager approval.",c:"Workplace-Policy · §12"},];
 const fb={a:"I can help you <b>use Raapid</b> (try “how do I create a job?”) or answer HR questions (leave, payroll, IT, benefits) — all grounded in RAAPID's documents.",c:"Assistant"};
+
+// Sessions setup
+let chatSessions = [
+  {
+    id: 1,
+    title: "Appraisal & Notice",
+    msgs: [
+      { who: 'bot', t: "Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>" },
+      { who: 'me', t: "What is the notice period?" },
+      { who: 'bot', t: "Notice period is <b>60 days</b> for permanent employees. Can be waived/shortened under manager approval.", c: "Workplace-Policy · §12" }
+    ]
+  },
+  {
+    id: 2,
+    title: "Laptop Upgrade Inquiry",
+    msgs: [
+      { who: 'bot', t: "Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>" },
+      { who: 'me', t: "How do I request a new laptop?" },
+      { who: 'bot', t: "Raise a ticket in <b>IT Support</b>. Laptops are eligible for upgrade every 3 years. Standard issue is M3 MacBook Air or ThinkPad T14.", c: "IT-Policy.pdf" }
+    ]
+  }
+];
+let activeSessionId = 1;
+
+function renderSessionsList() {
+  const list = document.getElementById('chatHistoryList');
+  if (!list) return;
+  list.innerHTML = chatSessions.map(s => `
+    <div class="chat-history-item ${s.id === activeSessionId ? 'active' : ''}" onclick="loadSession(${s.id})">
+      ${svg('ask')}
+      <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">${s.title}</span>
+    </div>
+  `).join('');
+}
+
+function loadSession(id) {
+  activeSessionId = id;
+  renderSessionsList();
+  const msgsContainer = document.getElementById('msgs');
+  if (!msgsContainer) return;
+  msgsContainer.innerHTML = '';
+  const session = chatSessions.find(s => s.id === id);
+  if (session) {
+    session.msgs.forEach(m => {
+      const d = document.createElement('div');
+      d.className = 'msg ' + (m.who === 'me' ? 'me' : 'bot');
+      let body = m.t;
+      if (m.c) {
+        body += `<div style="margin-top:9px"><span class="cite">${svg('doc')} ${m.c}</span></div>`;
+      }
+      d.innerHTML = (m.who === 'me' ? '' : `<div class="who">${svg('ask')} Raapid</div>`) + body;
+      msgsContainer.appendChild(d);
+    });
+    msgsContainer.scrollTop = msgsContainer.scrollHeight;
+  }
+}
+
+function startNewChat() {
+  const newId = chatSessions.length ? (Math.max(...chatSessions.map(s => s.id)) + 1) : 1;
+  const newSession = {
+    id: newId,
+    title: "New Chat",
+    msgs: [
+      { who: 'bot', t: "Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>" }
+    ]
+  };
+  chatSessions.push(newSession);
+  activeSessionId = newId;
+  loadSession(newId);
+}
+
 const msgs=document.getElementById('msgs');
 function bubble(t,who){const d=document.createElement('div');d.className='msg '+(who==='me'?'me':'bot');d.innerHTML=(who==='me'?'':`<div class="who">${svg('ask')} Raapid</div>`)+t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
-function answer(q){const t=q.toLowerCase(),hit=QA.find(x=>x.k.some(k=>t.includes(k)))||fb;const ty=bubble('<span class="typing"><i></i><i></i><i></i></span>','bot');
- setTimeout(()=>{ty.innerHTML=`<div class="bot-response"><div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div></div>`;msgs.scrollTop=msgs.scrollHeight;},2200);}
+
+function answer(q){
+  const t=q.toLowerCase(),hit=QA.find(x=>x.k.some(k=>t.includes(k)))||fb;
+  const session = chatSessions.find(s => s.id === activeSessionId);
+  if (session) {
+    session.msgs.push({ who: 'me', t: q });
+    if (session.title === "New Chat" || session.title === "Appraisal & Notice" || session.title === "Laptop Upgrade Inquiry") {
+      session.title = q.substring(0, 20) + (q.length > 20 ? '...' : '');
+      renderSessionsList();
+    }
+  }
+  const ty=bubble('<span class="typing"><i></i><i></i><i></i></span>','bot');
+  setTimeout(()=>{
+    ty.innerHTML=`<div class="bot-response"><div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div></div>`;
+    msgs.scrollTop=msgs.scrollHeight;
+    if (session) {
+      session.msgs.push({ who: 'bot', t: hit.a, c: hit.c });
+    }
+  },2200);
+}
+
 function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 const sg=["How do I create a job?","What's the WFH policy?","How do I claim expenses?","How do I request a new laptop?","When is the appraisal cycle?","What is the notice period?"];
 document.getElementById('suggest').innerHTML=sg.map(s=>`<span class="chip">＋ ${s}</span>`).join('');
 document.querySelectorAll('#suggest .chip').forEach((c,i)=>c.onclick=()=>{document.getElementById('chatInput').value=sg[i];send()});
-bubble("Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>",'bot');
+
+// Initial boot
+renderSessionsList();
+loadSession(1);
+document.getElementById('newChatBtn').onclick = startNewChat;
 
 /* ---------- people: engagement + talent ---------- */
 document.querySelectorAll('#peopleSeg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#peopleSeg button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
