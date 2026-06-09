@@ -464,23 +464,9 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  /* Chat History Sidebar styles */
-  .chat-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-right: 1px solid var(--line);
-    padding-right: 16px;
-    width: 220px;
-    flex-shrink: 0;
-  }
-  .chat-history-list {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  /* Chat History Dropdown Styles */
+  
+  
   .chat-history-item {
     padding: 8px 12px;
     border-radius: 8px;
@@ -503,32 +489,34 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     border-color: var(--brand);
     font-weight: 600;
   }
-  @media (max-width: 768px) {
-    .chat {
-      flex-direction: column !important;
-    }
-    .chat-sidebar {
-      width: 100% !important;
-      border-right: none !important;
-      border-bottom: 1px solid var(--line);
-      padding-right: 0 !important;
-      padding-bottom: 12px !important;
-      flex-direction: row !important;
-      overflow-x: auto;
-      white-space: nowrap;
-      align-items: center;
-    }
-    .chat-history-list {
-      flex-direction: row !important;
-      overflow-x: auto;
-      gap: 8px !important;
-    }
-    .chat-sidebar-title {
-      display: none !important;
-    }
-    .chat-history-item {
-      padding: 6px 12px !important;
-    }
+  
+
+
+  /* Chat History Dropdown Styles */
+  .chat-history-dropdown {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .chat-history-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+  }
+  .chat-history-item:hover {
+    background: var(--chip);
+    border-color: var(--line);
+  }
+  .chat-history-item.active {
+    background: var(--chip);
+    border-color: var(--brand);
+    font-weight: 600;
   }
 
 </style>
@@ -832,23 +820,9 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
-  /* Chat History Sidebar styles */
-  .chat-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border-right: 1px solid var(--line);
-    padding-right: 16px;
-    width: 220px;
-    flex-shrink: 0;
-  }
-  .chat-history-list {
-    flex: 1;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  /* Chat History Dropdown Styles */
+  
+  
   .chat-history-item {
     padding: 8px 12px;
     border-radius: 8px;
@@ -871,32 +845,34 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     border-color: var(--brand);
     font-weight: 600;
   }
-  @media (max-width: 768px) {
-    .chat {
-      flex-direction: column !important;
-    }
-    .chat-sidebar {
-      width: 100% !important;
-      border-right: none !important;
-      border-bottom: 1px solid var(--line);
-      padding-right: 0 !important;
-      padding-bottom: 12px !important;
-      flex-direction: row !important;
-      overflow-x: auto;
-      white-space: nowrap;
-      align-items: center;
-    }
-    .chat-history-list {
-      flex-direction: row !important;
-      overflow-x: auto;
-      gap: 8px !important;
-    }
-    .chat-sidebar-title {
-      display: none !important;
-    }
-    .chat-history-item {
-      padding: 6px 12px !important;
-    }
+  
+
+
+  /* Chat History Dropdown Styles */
+  .chat-history-dropdown {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .chat-history-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+  }
+  .chat-history-item:hover {
+    background: var(--chip);
+    border-color: var(--line);
+  }
+  .chat-history-item.active {
+    background: var(--chip);
+    border-color: var(--brand);
+    font-weight: 600;
   }
 
 </style>
@@ -931,17 +907,23 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
       <!-- ASK SAHAY -->
       <section class="view" id="ask">
         <div class="card glass" style="padding:16px 18px">
-          <div class="chat" style="display:flex; flex-direction:row; gap:16px;">
-            <div class="chat-sidebar">
-              <button class="btn" id="newChatBtn" style="justify-content:center; gap:6px; font-weight:600; width:100%;">+ New Chat</button>
-              <div class="chat-sidebar-title" style="font-size:11px; text-transform:uppercase; color:var(--soft); font-weight:700; margin-top:8px;">Recent Chats</div>
-              <div class="chat-history-list" id="chatHistoryList"></div>
+          <div class="chat">
+            <div class="chat-header" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:12px; margin-bottom:12px; position:relative;">
+              <button class="btn icon-btn" id="historyBtn" style="padding:8px;" title="Chat History">
+                ${svg('clock')}
+              </button>
+              <div style="font-weight:700; font-size:14.5px; color:var(--ink); letter-spacing:-0.15px;">Raapid AI Copilot</div>
+              <button class="btn icon-btn" id="newChatBtnHeader" style="padding:8px;" title="New Chat">
+                ${svg('plus')}
+              </button>
+              <div class="chat-history-dropdown glass" id="chatHistoryDropdown" style="display:none; position:absolute; top:42px; left:0; width:220px; z-index:100; border:1px solid var(--line); border-radius:12px; padding:8px; box-shadow:var(--shadow-lg);">
+                <div style="font-size:10px; text-transform:uppercase; color:var(--soft); font-weight:700; padding:4px 8px 6px;">Recent Chats</div>
+                <div class="chat-history-list" id="chatHistoryList" style="max-height:200px; overflow-y:auto; display:flex; flex-direction:column; gap:4px;"></div>
+              </div>
             </div>
-            <div class="chat-main" style="flex:1; display:flex; flex-direction:column; min-width:0;">
-              <div class="msgs" id="msgs"></div>
-              <div class="suggest" id="suggest"></div>
-              <div class="composer"><input id="chatInput" placeholder="Ask anything — or ‘how do I create a job?’"/><button class="btn" id="sendBtn">Send <span data-ic="arrow"></span></button></div>
-            </div>
+            <div class="msgs" id="msgs"></div>
+            <div class="suggest" id="suggest"></div>
+            <div class="composer"><input id="chatInput" placeholder="Ask anything — or ‘how do I create a job?’"/><button class="btn" id="sendBtn">Send <span data-ic="arrow"></span></button></div>
           </div>
         </div>
       </section>
@@ -1124,6 +1106,7 @@ const VIEWS={home:["Home","Your AI people operations, at a glance"],hire:["Hire"
  ask:["Ask Raapid","Grounded answers — and help using the platform"],
  people:["People","Listen to & understand your people, fairly"],cc:["Control Center","Manage agents, governance, setup — your mission control"]};
 function go(v){document.querySelectorAll('.nav a').forEach(x=>x.classList.toggle('active',x.dataset.v===v));
+  const f=document.getElementById('fab');if(f){f.style.display=(v==='ask')?'none':'flex';}
  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
  document.getElementById('vTitle').textContent=VIEWS[v][0];document.getElementById('vSub').textContent=VIEWS[v][1];
  document.querySelector('.scroll').scrollTop=0;
@@ -1462,6 +1445,8 @@ function renderSessionsList() {
 function loadSession(id) {
   activeSessionId = id;
   renderSessionsList();
+  const dropdown = document.getElementById('chatHistoryDropdown');
+  if (dropdown) dropdown.style.display = 'none';
   const msgsContainer = document.getElementById('msgs');
   if (!msgsContainer) return;
   msgsContainer.innerHTML = '';
@@ -1527,7 +1512,36 @@ document.querySelectorAll('#suggest .chip').forEach((c,i)=>c.onclick=()=>{docume
 // Initial boot
 renderSessionsList();
 loadSession(1);
-document.getElementById('newChatBtn').onclick = startNewChat;
+
+// Bind buttons
+const historyBtn = document.getElementById('historyBtn');
+const historyDropdown = document.getElementById('chatHistoryDropdown');
+if (historyBtn && historyDropdown) {
+  historyBtn.onclick = (e) => {
+    e.stopPropagation();
+    const open = historyDropdown.style.display === 'block';
+    historyDropdown.style.display = open ? 'none' : 'block';
+    if (!open) {
+      historyDropdown.style.opacity = '0';
+      historyDropdown.style.transform = 'translateY(-4px)';
+      setTimeout(() => {
+        historyDropdown.style.opacity = '1';
+        historyDropdown.style.transform = 'translateY(0)';
+      }, 10);
+    }
+  };
+  document.addEventListener('click', () => {
+    historyDropdown.style.display = 'none';
+  });
+  historyDropdown.onclick = (e) => {
+    e.stopPropagation();
+  };
+}
+
+const newBtn = document.getElementById('newChatBtnHeader');
+if (newBtn) {
+  newBtn.onclick = startNewChat;
+}
 
 /* ---------- people: engagement + talent ---------- */
 document.querySelectorAll('#peopleSeg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#peopleSeg button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
