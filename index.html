@@ -1287,7 +1287,7 @@ function answer(q){const t=q.toLowerCase(),hit=QA.find(x=>x.k.some(k=>t.includes
  setTimeout(()=>{ty.innerHTML=`<div class="bot-response"><div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div></div>`;msgs.scrollTop=msgs.scrollHeight;},2200);}
 function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
-const sg=["How do I create a job?","What's the WFH policy?","How many casual leaves do I have?","What is the notice period?"];
+const sg=["How do I create a job?","What's the WFH policy?","How do I claim expenses?","How do I request a new laptop?","When is the appraisal cycle?","What is the notice period?"];
 document.getElementById('suggest').innerHTML=sg.map(s=>`<span class="chip">＋ ${s}</span>`).join('');
 document.querySelectorAll('#suggest .chip').forEach((c,i)=>c.onclick=()=>{document.getElementById('chatInput').value=sg[i];send()});
 bubble("Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>",'bot');
