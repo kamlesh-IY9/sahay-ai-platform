@@ -459,6 +459,10 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.4) !important;
   }
 
+
+  .bot-response {
+    animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 </style>
 </head>
 <body>
@@ -755,6 +759,10 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
     box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.4) !important;
   }
 
+
+  .bot-response {
+    animation: enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 </style>
               <div class="legend" style="margin-top:15px">
                 <span><i style="background:rgba(16,185,129,0.15);border-radius:50%"></i> Active / WFH</span>
@@ -1267,15 +1275,19 @@ const QA=[{k:["create","new job","post","open a role","add a job"],a:"To create 
  {k:["wfh","remote","hybrid"],a:"RAAPID is <b>hybrid</b>: 3 days in-office, 2 flexible.",c:"Workplace-Policy · §5"},
  {k:["form 16","form-16","pf","provident","esic","gratuity"],a:"<b>Form-16</b> is issued by 15 June; <b>PF</b> is 12% + 12%; <b>gratuity</b> applies after 5 years of service. Want the full statutory FAQ?",c:"Statutory-FAQ.md"},
  {k:["posh","harassment","complaint"],a:"RAAPID has a <b>POSH</b> policy and an Internal Committee. Complaints are confidential — I can guide you to the IC or HR.",c:"POSH-Policy.pdf"},
- {k:["insurance","health","medical","benefit"],a:"You're covered by a <b>₹5L family floater</b> mediclaim from day one, plus an EAP.",c:"Benefits-Guide.pdf"}];
+ {k:["insurance","health","medical","benefit"],a:"You're covered by a <b>₹5L family floater</b> mediclaim from day one, plus an EAP.",c:"Benefits-Guide.pdf"},
+{k:["expense","claim","reimburse"],a:"Claim via <b>Control Center → Expenses</b>. Internet is reimbursed up to ₹1,500/month; travel requires receipts. Approvals take 3 working days.",c:"Expense-Policy.pdf"},
+ {k:["laptop","hardware","it support","macbook"],a:"Raise a ticket in <b>IT Support</b>. Laptops are eligible for upgrade every 3 years. Standard issue is M3 MacBook Air or ThinkPad T14.",c:"IT-Policy.pdf"},
+ {k:["appraisal","promotion","review","cycle"],a:"Appraisals happen twice a year: H1 (October) and H2 (April). Self-evaluations open 2 weeks prior.",c:"Performance-Cycle.pdf"},
+ {k:["notice period","resign","exit"],a:"Notice period is <b>60 days</b> for permanent employees. Can be waived/shortened under manager approval.",c:"Workplace-Policy · §12"},];
 const fb={a:"I can help you <b>use Raapid</b> (try “how do I create a job?”) or answer HR questions (leave, payroll, IT, benefits) — all grounded in RAAPID's documents.",c:"Assistant"};
 const msgs=document.getElementById('msgs');
 function bubble(t,who){const d=document.createElement('div');d.className='msg '+(who==='me'?'me':'bot');d.innerHTML=(who==='me'?'':`<div class="who">${svg('ask')} Raapid</div>`)+t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
 function answer(q){const t=q.toLowerCase(),hit=QA.find(x=>x.k.some(k=>t.includes(k)))||fb;const ty=bubble('<span class="typing"><i></i><i></i><i></i></span>','bot');
- setTimeout(()=>{ty.innerHTML=`<div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div>`;msgs.scrollTop=msgs.scrollHeight;},650);}
+ setTimeout(()=>{ty.innerHTML=`<div class="bot-response"><div class="who">${svg('ask')} Raapid</div>${hit.a}<div style="margin-top:9px"><span class="cite">${svg('doc')} ${hit.c}</span></div></div>`;msgs.scrollTop=msgs.scrollHeight;},2200);}
 function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
-const sg=["How do I create a job?","Add a new hire","How many casual leaves do I have?","What's the WFH policy?"];
+const sg=["How do I create a job?","What's the WFH policy?","How many casual leaves do I have?","What is the notice period?"];
 document.getElementById('suggest').innerHTML=sg.map(s=>`<span class="chip">＋ ${s}</span>`).join('');
 document.querySelectorAll('#suggest .chip').forEach((c,i)=>c.onclick=()=>{document.getElementById('chatInput').value=sg[i];send()});
 bubble("Hi Kamlesh 👋 I'm <b>Raapid</b>. I can help you <b>use the platform</b> (“how do I create a job?”) or answer HR questions from RAAPID's policies. <i>(Mockup · demo data.)</i>",'bot');
