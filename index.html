@@ -217,21 +217,22 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 .suggest {
   display: flex;
   gap: 8px;
-  overflow-x: auto;
-  white-space: nowrap;
+  flex-wrap: wrap;
   margin-bottom: 12px;
-  padding: 4px 24px 6px 0px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
-  mask-image: linear-gradient(to right, black 80%, transparent 98%);
-  -webkit-mask-image: linear-gradient(to right, black 80%, transparent 98%);
-}
-.suggest::-webkit-scrollbar {
-  display: none;
+  transition: all 0.3s ease;
 }
 .suggest .chip {
-  flex-shrink: 0;
+  animation: chipReveal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes chipReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .typing{display:inline-flex;gap:4px;padding:4px 0}.typing i{width:6px;height:6px;border-radius:50%;background:var(--soft);animation:bl 1.2s infinite}.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
@@ -1483,6 +1484,17 @@ function loadSession(id) {
       msgsContainer.appendChild(d);
     });
     msgsContainer.scrollTop = msgsContainer.scrollHeight;
+    
+    // Toggle suggestions based on session history length
+    const suggest = document.getElementById('suggest');
+    if (suggest) {
+      if (session.msgs.length <= 1) {
+        suggest.style.display = 'flex';
+        renderSuggestions(false);
+      } else {
+        suggest.style.display = 'none';
+      }
+    }
   }
 }
 
@@ -1523,11 +1535,35 @@ function answer(q){
   },2200);
 }
 
-function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
+function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';document.getElementById('suggest').style.display='none';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 const sg=["How do I create a job?","What's the WFH policy?","How do I claim expenses?","How do I request a new laptop?","When is the appraisal cycle?","What is the notice period?","What health insurance do I have?","What is the POSH policy?","How do I apply for casual leave?","What is Form-16 release date?"];
-document.getElementById('suggest').innerHTML=sg.map(s=>`<span class="chip">＋ ${s}</span>`).join('');
-document.querySelectorAll('#suggest .chip').forEach((c,i)=>c.onclick=()=>{document.getElementById('chatInput').value=sg[i];send()});
+
+function renderSuggestions(expanded = false) {
+  const container = document.getElementById('suggest');
+  if (!container) return;
+  
+  let html = '';
+  const limit = expanded ? sg.length : 3;
+  
+  for (let i = 0; i < limit; i++) {
+    html += `<span class="chip" onclick="selectSuggestion(${i})">＋ ${sg[i]}</span>`;
+  }
+  
+  if (!expanded && sg.length > 3) {
+    html += `<span class="chip" onclick="renderSuggestions(true)" style="background:var(--brand-glow);color:var(--brand);border-color:var(--brand);font-weight:700;">＋ ${sg.length - 3} More</span>`;
+  } else if (expanded) {
+    html += `<span class="chip" onclick="renderSuggestions(false)" style="background:var(--chip);color:var(--muted);border-style:dashed;">－ Less</span>`;
+  }
+  
+  container.innerHTML = html;
+}
+
+function selectSuggestion(i) {
+  bubble(sg[i], 'me');
+  answer(sg[i]);
+  document.getElementById('suggest').style.display = 'none';
+}
 
 // Initial boot
 renderSessionsList();
