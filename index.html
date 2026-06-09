@@ -1485,15 +1485,11 @@ function loadSession(id) {
     });
     msgsContainer.scrollTop = msgsContainer.scrollHeight;
     
-    // Toggle suggestions based on session history length
+    // Ensure suggestions are always visible and reset to collapsed view on session switch
     const suggest = document.getElementById('suggest');
     if (suggest) {
-      if (session.msgs.length <= 1) {
-        suggest.style.display = 'flex';
-        renderSuggestions(false);
-      } else {
-        suggest.style.display = 'none';
-      }
+      suggest.style.display = 'flex';
+      renderSuggestions(false);
     }
   }
 }
@@ -1535,7 +1531,7 @@ function answer(q){
   },2200);
 }
 
-function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';document.getElementById('suggest').style.display='none';}
+function send(){const i=document.getElementById('chatInput');if(!i.value.trim())return;bubble(i.value,'me');answer(i.value);i.value='';}
 document.getElementById('sendBtn').onclick=send;document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
 const sg=["How do I create a job?","What's the WFH policy?","How do I claim expenses?","How do I request a new laptop?","When is the appraisal cycle?","What is the notice period?","What health insurance do I have?","What is the POSH policy?","How do I apply for casual leave?","What is Form-16 release date?"];
 
@@ -1562,7 +1558,6 @@ function renderSuggestions(expanded = false) {
 function selectSuggestion(i) {
   bubble(sg[i], 'me');
   answer(sg[i]);
-  document.getElementById('suggest').style.display = 'none';
 }
 
 // Initial boot
