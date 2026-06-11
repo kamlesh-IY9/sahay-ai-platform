@@ -1,60 +1,69 @@
-# Raapid AI — People Platform
+# Raapid AI — People Platform (v2.0 · two-sided working prototype)
 
-> An interactive AI-powered HR platform prototype built for **RAAPID**.  
-> **[🚀 View Live Demo →](https://kamlesh-IY9.github.io/raapid-ai-platform)**  
-> **[📄 Download Product Guide (PDF) →](https://kamlesh-IY9.github.io/raapid-ai-platform/Raapid_AI_Platform_Guide.pdf)**
+A **two-sided HR platform prototype**: an **HR side** (Anita Desai) and an **Employee side**
+(Priya Sharma · Arjun Mehta · Sneha Kulkarni) sharing one live state — what an employee does
+**instantly reflects** on the HR side, and vice-versa. Still honestly a prototype (demo data,
+"Prototype" pill always visible), but every flow genuinely works end-to-end.
 
----
+## Run it
+- **Zero install:** double-click `index.html`. State persists in `localStorage`.
+- **Reset demo data** any time: login screen footer, or avatar menu (top-right).
+- **Switch person:** avatar (top-right) → *Switch role / person*. Data stays.
 
-## What is Raapid AI?
+## Deploy
+- **GitHub Pages:** push this folder's contents — works as-is (chatbot uses the built-in
+  guarded offline engine, badge shows *Offline assistant*).
+- **Vercel (full version):** `vercel deploy` this folder and set the env var
+  **`ANTHROPIC_API_KEY`** → the chat auto-upgrades to **Live AI** (badge turns green).
+  The key lives only in `api/chat.js` (serverless), never in the page.
 
-Raapid AI is a full-lifecycle **AI People Platform** that replaces fragmented HR tools with a single copilot + agent fleet automating hiring, onboarding, employee support, payroll, engagement, and governance — with humans always in control.
+## The 6-minute CEO demo script
 
-## Key Features
+1. **Login screen (15s).** "One platform, two sides. Let me start as an employee."
+   → click **Priya Sharma** (new joiner).
+2. **My Home (30s).** Personal worklist: pending documents, onboarding tasks, leave balances.
+   "The system already knows what she owes HR."
+3. **Documents (40s).** Upload PAN (any file) → status flips to *Submitted · awaiting HR*.
+4. **Ask Raapid — guardrails (60s).** Type gibberish → it pushes back. Ask "tell me a joke" →
+   politely refuses, HR-topics only. Ask **"what's my leave balance?"** → real numbers, cited.
+5. **Ask Raapid — agent action (45s).** Type **"apply sick leave for tomorrow"** → it parses,
+   shows a confirmation card (balance-checked) → Confirm → "filed, pending with HR."
+   **"The agent does the task; a human still approves."**
+6. **Speak Up (60s).** Open Speak Up: two modes — **Confidential** (identity sealed to the IC,
+   §16) vs **Anonymous** (preliminary assessment, Kerala HC). Click **"Know the law"** →
+   the cited legal toolkit. Submit an anonymous tip.
+7. **Switch to Anita (HR) (20s).** Avatar → switch → **Anita Desai**. Home worklist now shows:
+   leave to approve, PAN to verify, POSH case in queue — live counts.
+8. **Leaves (30s).** Priya's requests (one marked *filed by agent*) → **Approve** → her balance
+   updates instantly.
+9. **Documents (20s).** PAN in the verification queue → **Verify**.
+10. **POSH · IC (45s).** Sealed queue: anonymous tip has *no identity anywhere*; a confidential
+    case hides the name until **"Open IC view"** — and that unmask is itself audit-logged.
+    The general audit trail never shows a complainant name.
+11. **Switch back to Priya (20s).** Leave: *Approved* ✓. PAN: *Verified* ✓. Round trip complete.
+12. **Close (15s).** "Same pattern covers expenses, attendance corrections, profile changes,
+    helpdesk, payroll and offboarding — all human-in-the-loop, all audited. This is a prototype;
+    the build roadmap is the next conversation."
 
-| Feature | Description |
-|---------|-------------|
-| 🏠 **Home Dashboard** | Real-time KPIs, HR request bar chart, live agent activity feed |
-| 💼 **Hire Tab** | Kanban pipeline with drag & drop, AI shortlisting, candidate drawers |
-| 🚀 **Onboard Tab** | AI-generated Week-1 plans, welcome email editor, provisioning pipeline |
-| 💬 **Ask Raapid** | Grounded chatbot with policy citations |
-| 👥 **People Tab** | eNPS gauge, sentiment trend chart, talent radar |
-| ⚙️ **Control Center** | Agent fleet, governance queue, knowledge base, compare vs competitors |
+## What's working (all verified end-to-end, 31 automated checks)
+- Role-picker login · role-filtered navigation · persistent shared state (localStorage)
+- **Employee:** leave apply (balance-validated) · attendance check-in + regularization ·
+  document upload + letter requests · payslips (viewable/printable) · expense claims ·
+  helpdesk tickets · profile edits (HR-verified) · Speak Up (POSH)
+- **HR:** leave approvals (updates employee balance live) · document verification queue +
+  per-employee status · helpdesk inbox (reply→resolve) · payroll run snapshot · offboarding
+  checklist · governance queue now includes self-service items · POSH IC sealed queue
+- **Chatbot:** gibberish + off-topic guardrails · role-aware answers with citations + action
+  chips · honest abstention ("I don't have that…") with ticket escalation · **agent actions**
+  (apply leave / raise ticket / request letter) with confirm + HR approval · POSH keywords
+  route to Speak Up, never casual chat · optional **Live AI** via Vercel + `ANTHROPIC_API_KEY`
+- Light/dark themes · responsive (mobile drawer nav) · premium motion (staggered cards,
+  status-flip animations, login shimmer) · `prefers-reduced-motion` respected
 
-## Agent Fleet
-
-**7 Live Agents** (in pilot): HR Helpdesk · Onboarding · Recruiter · Interview Scheduler · Engagement/VoE · Payroll Analyst · Leave & Attendance  
-**5 Roadmap Agents**: Goals & Performance · Learning Tutor · Talent Assessor · Offboarding · Policy Analyst
-
-## Core Principles
-
-- **AI suggests, humans decide** — no auto-rejections, no unsupervised high-risk actions  
-- **Grounded, not guessed** — every answer cites your actual policy documents via RAG  
-- **Multi-model, no lock-in** — GPT-5.2, Claude Opus 4.8, Gemini 3.5, or on-prem Llama  
-- **Data stays in your tenant** — private RAG, role-based access, nothing trains public models  
-
-## How to Run Locally
-
-Just open `index.html` in Chrome or Edge. No server needed.
-
-```bash
-# Clone
-git clone https://github.com/kamlesh-IY9/raapid-ai-platform.git
-cd raapid-ai-platform
-
-# Open in browser
-open index.html   # macOS
-xdg-open index.html  # Linux
-```
-
-## Files
-
-| File | Description |
-|------|-------------|
-| `index.html` | Full interactive prototype (self-contained, no dependencies) |
-| `Raapid_AI_Platform_Guide.pdf` | Product walkthrough + competitive analysis PDF |
-| `Raapid_AI_Platform_Guide.md` | Source markdown for the guide |
-
----
-
-*Built for RAAPID · Raapid AI v0.4 · June 2026*
+## Honesty notes (say these out loud)
+- The **"Prototype"** pill stays visible; numbers are illustrative.
+- Files aren't actually stored (names only); payslip figures are derived demo values.
+- The POSH legal toolkit is a researched plain-language summary (ssrana.in, corridalegal.com,
+  rainmaker.co.in, mondaq.com) — not legal advice.
+- Offline chatbot answers come from a curated intent base; the Live AI mode is grounded via
+  a policy pack in the serverless prompt — both refuse rather than invent.
