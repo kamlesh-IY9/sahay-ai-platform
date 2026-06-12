@@ -284,9 +284,11 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 .drawer::-webkit-scrollbar{width:8px}.drawer::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 
 /* modal */
-#jobForm{position:fixed;inset:0;background:rgba(8,10,22,0.65);backdrop-filter:blur(10px);z-index:100;align-items:center;justify-content:center}
+#jobForm{position:fixed;inset:0;background:rgba(8,10,22,0.65);backdrop-filter:blur(10px);z-index:100;align-items:center;justify-content:center;animation:overlayFade .28s ease}
 #jobForm[style*="display: block"],#jobForm[style*="display:block"]{display:flex !important}
-.modal-content{background:var(--glass-strong);border:1px solid var(--line);border-radius:20px;padding:24px;width:580px;max-width:92vw;box-shadow:var(--shadow-lg);animation:modal-enter 0.28s cubic-bezier(0.16,1,0.3,1)}
+@keyframes overlayFade{from{opacity:0}to{opacity:1}}
+.modal-content{background:var(--glass-strong);border:1px solid var(--line);border-radius:20px;padding:26px;width:620px;max-width:94vw;max-height:88vh;overflow:auto;box-shadow:var(--shadow-lg);animation:modal-enter 0.28s cubic-bezier(0.16,1,0.3,1)}
+.modal-content::-webkit-scrollbar{width:8px}.modal-content::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 @keyframes modal-enter{from{transform:translateY(20px) scale(0.96);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 
 /* extra utilities */
@@ -420,7 +422,6 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
   }
   
   .card:hover {
-    transform: translateY(-4px);
     box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.03) !important;
     border-color: var(--brand) !important;
   }
@@ -610,7 +611,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 .ic-restricted{border:1.5px dashed rgba(13,148,136,.5);border-radius:14px;padding:16px;text-align:center;background:rgba(13,148,136,.04)}
 
 /* ===== v2 · PREMIUM MOTION ===== */
-.view.active .card,.view.active .tile,.view.active .approw,.view.active .wl{animation:cardIn .5s cubic-bezier(0.16,1,0.3,1) both}
+.view.active .card,.view.active .tile,.view.active .approw,.view.active .wl{animation:cardIn .5s cubic-bezier(0.16,1,0.3,1) backwards}
 .view.active .card:nth-child(1),.view.active .grid>*:nth-child(1){animation-delay:.02s}
 .view.active .grid>*:nth-child(2){animation-delay:.07s}
 .view.active .grid>*:nth-child(3){animation-delay:.12s}
@@ -628,6 +629,69 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 .actchip:hover{background:var(--brand);color:#fff;transform:translateY(-1.5px)}
 .confirm-card{border:1.5px solid var(--brand);border-radius:14px;padding:14px;background:var(--brand-glow);margin-top:10px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+
+/* ===== v2.1 · DESKTOP POLISH PASS ===== */
+.scroll{background:radial-gradient(900px 420px at 85% -8%,var(--brand-glow),transparent 55%),var(--bg2)}
+.htitle{background:linear-gradient(135deg,var(--ink),var(--muted));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sectitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);margin-left:6px}
+.ico{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.kpi{overflow:hidden}
+.kpi::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:var(--brand-glow);opacity:.7;pointer-events:none;transition:transform .4s cubic-bezier(0.16,1,0.3,1)}
+.kpi:hover::before{transform:scale(1.35)}
+.wl .wi{box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.drawer{padding:0}
+.drawer>*{margin-left:28px;margin-right:28px}
+.drawer>:first-child{position:sticky;top:0;z-index:5;background:var(--glass-strong);margin:0;padding:22px 28px 14px;border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.drawer>:last-child{margin-bottom:28px}
+.drawer>:nth-child(2){margin-top:18px}
+.balmini{height:5px;border-radius:999px;background:var(--chip);overflow:hidden;margin-top:10px}
+.balmini>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--cyan));transition:width .9s cubic-bezier(0.16,1,0.3,1)}
+.ehero{border-radius:20px;padding:24px;position:relative;overflow:hidden;border:1px solid var(--line);background:var(--glass);box-shadow:var(--shadow)}
+.ehero::before{content:'';position:absolute;inset:0;background:linear-gradient(118deg,var(--brand-glow),transparent 42%);pointer-events:none}
+.ehero::after{content:'';position:absolute;top:-70px;right:-40px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,var(--brand-glow),transparent 70%);pointer-events:none}
+.empty-state{border:1.5px dashed var(--line);border-radius:16px;padding:34px 20px;text-align:center;color:var(--soft)}
+.empty-state .es-ic{width:46px;height:46px;border-radius:14px;margin:0 auto 12px;background:var(--chip);color:var(--soft);display:flex;align-items:center;justify-content:center;font-size:22px}
+.empty-state b{color:var(--muted);font-size:13.5px}
+.empty-state p{font-size:12px;margin:5px 0 0;line-height:1.5}
+
+/* ===== v2.1 · COMPLAINT MODES — teal (confidential) vs RED (anonymous) ===== */
+.posh-shell{transition:all .45s cubic-bezier(0.16,1,0.3,1)}
+.modeseg{display:flex;gap:0;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin:4px 0 18px;background:var(--glass)}
+.modeseg button{flex:1;border:0;background:transparent;padding:15px 16px;font-size:13.5px;font-weight:800;cursor:pointer;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:9px;transition:all .3s cubic-bezier(0.16,1,0.3,1);font-family:inherit}
+.modeseg button svg.i{font-size:17px}
+.modeseg button.on-teal{background:linear-gradient(135deg,#0d9488,#0f766e);color:#fff;box-shadow:0 4px 14px rgba(13,148,136,.35)}
+.modeseg button.on-red{background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;box-shadow:0 4px 14px rgba(220,38,38,.35)}
+/* red (anonymous) skin */
+.posh-shell.anon .posh-hero{border-color:rgba(220,38,38,.3);background:linear-gradient(135deg,rgba(220,38,38,.08),rgba(220,38,38,.02))}
+[data-theme="dark"] .posh-shell.anon .posh-hero{border-color:rgba(248,113,113,.3);background:linear-gradient(135deg,rgba(220,38,38,.14),rgba(220,38,38,.03))}
+.posh-shell.anon .posh-ic{background:rgba(220,38,38,.12);color:#dc2626}
+[data-theme="dark"] .posh-shell.anon .posh-ic{color:#f87171}
+.posh-shell.anon .posh-tag{background:rgba(220,38,38,.12);color:#dc2626}
+[data-theme="dark"] .posh-shell.anon .posh-tag{color:#f87171}
+.posh-shell.anon .tstep.done::before{background:#dc2626;border-color:#dc2626;box-shadow:0 0 0 4px rgba(220,38,38,.15)}
+.posh-shell.anon .tstep.now::before{background:#dc2626;border-color:#dc2626;box-shadow:0 0 0 4px rgba(220,38,38,.18)}
+.empathy{border-radius:16px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;animation:cardIn .5s cubic-bezier(0.16,1,0.3,1) backwards;border:1px solid}
+.empathy .em-ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.empathy b{font-size:14.5px;letter-spacing:-.15px}
+.empathy p{font-size:12.5px;margin:6px 0 0;line-height:1.65}
+.empathy.teal{background:linear-gradient(135deg,rgba(13,148,136,.08),rgba(13,148,136,.02));border-color:rgba(13,148,136,.25)}
+.empathy.teal .em-ic{background:rgba(13,148,136,.12);color:#0d9488}
+.empathy.teal p{color:var(--muted)}
+.empathy.red{background:linear-gradient(135deg,rgba(220,38,38,.09),rgba(220,38,38,.02));border-color:rgba(220,38,38,.28)}
+.empathy.red .em-ic{background:rgba(220,38,38,.12);color:#dc2626}
+.empathy.red p{color:var(--muted)}
+[data-theme="dark"] .empathy.red .em-ic{color:#f87171}
+.assure{display:flex;gap:10px;align-items:center;font-size:12px;font-weight:600;color:var(--muted);padding:9px 0;border-bottom:1px dashed var(--line)}
+.assure svg.i{font-size:15px;color:#0d9488;flex-shrink:0}
+.posh-shell.anon .assure svg.i{color:#dc2626}
+@media(max-width:640px){.modeseg{flex-direction:column}.modeseg button{padding:13px}}
+/* urgent complaint rows on the HR dashboard — top priority, red */
+.wl.urgent{border-color:rgba(220,38,38,.45);background:linear-gradient(135deg,rgba(220,38,38,.07),rgba(220,38,38,.015))}
+.wl.urgent:hover{border-color:#dc2626;background:rgba(220,38,38,.1)}
+.wl.urgent .wi{background:rgba(220,38,38,.12);color:#dc2626}
+.urgdot{width:8px;height:8px;border-radius:50%;background:#dc2626;flex-shrink:0;box-shadow:0 0 0 0 rgba(220,38,38,.55);animation:urgpulse 1.6s infinite}
+@keyframes urgpulse{0%{box-shadow:0 0 0 0 rgba(220,38,38,.55)}70%{box-shadow:0 0 0 9px rgba(220,38,38,0)}100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}}
+.urgtag{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;background:#dc2626;color:#fff;padding:3px 8px;border-radius:6px}
 </style>
 </head>
 <body>
@@ -697,30 +761,6 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
         <div class="card glass">
           <div class="row between"><div><h3 style="margin:0">Open roles</h3><p class="hint" style="margin:3px 0 0">Create a job, and the Recruiter agent sources &amp; ranks candidates for you.</p></div>
             <button class="btn" id="newJobBtn"><span data-ic="plus"></span> New job</button></div>
-          <!-- create job form -->
-          <div id="jobForm" style="display:none">
-            <div class="modal-content">
-              <div class="row between" style="margin-bottom:18px">
-                <h3 style="margin:0" id="jobFormTitle">Create new role</h3>
-                <div class="iconbtn glass" onclick="document.getElementById('jobForm').style.display='none'" style="cursor:pointer;padding:4px 8px;font-weight:700">&times;</div>
-              </div>
-              <div class="formgrid">
-                <div class="field"><label>Job title</label><input id="jTitle" placeholder="e.g. Data Analyst"/></div>
-                <div class="field"><label>Department</label><select id="jDept"><option>Data &amp; Analytics</option><option>Engineering</option><option>People / HR</option><option>Sales &amp; GTM</option><option>Product</option></select></div>
-                <div class="field"><label>Location</label><input id="jLoc" placeholder="e.g. Ahmedabad (hybrid)"/></div>
-                <div class="field"><label>Type</label><select id="jType"><option>Full-time</option><option>Contract</option><option>Internship</option></select></div>
-              </div>
-              <div class="field"><label>Key skills</label><input id="jSkills" placeholder="e.g. Python, SQL, communication"/></div>
-              <div class="field"><label>Job description <span style="color:var(--soft);font-weight:500">(write it, or let Raapid draft it)</span></label><textarea id="jDesc" placeholder="Paste a description, or click ‘Draft with AI’."></textarea></div>
-              <div class="row between" style="margin-top:18px">
-                <button class="btn ghost sm" id="draftJdBtn"><span data-ic="spark"></span> Draft with AI</button>
-                <div class="row" style="gap:9px">
-                  <button class="btn ghost sm" id="cancelJobBtn">Cancel</button>
-                  <button class="btn sm" id="postJobBtn"><span data-ic="check"></span> Post job</button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div id="rolesList"></div>
         </div>
 
@@ -856,7 +896,6 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
   }
   
   .card:hover {
-    transform: translateY(-4px);
     box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.03) !important;
     border-color: var(--brand) !important;
   }
@@ -1017,7 +1056,7 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
               </button>
               <div style="font-weight:700; font-size:14.5px; color:var(--ink); letter-spacing:-0.15px;">Raapid AI Copilot</div>
               <div class="row" style="gap:8px">
-                <button class="btn icon-btn ghost" id="speakUpBtn" style="padding:8px 12px;font-size:11.5px;background:rgba(13,148,136,.08);color:#0d9488;border:1px solid rgba(13,148,136,.3);box-shadow:none" title="Safe, confidential reporting" onclick="go(isHR()?'posh':'espeak')"><span data-ic="shield"></span>&nbsp;Speak Up</button>
+                <button class="btn icon-btn ghost" id="speakUpBtn" style="padding:8px 12px;font-size:11.5px;background:rgba(13,148,136,.08);color:#0d9488;border:1px solid rgba(13,148,136,.3);box-shadow:none" title="Safe, protected reporting — anonymous if you choose" onclick="go(isHR()?'posh':'espeak')"><span data-ic="shield"></span>&nbsp;Report safely</button>
                 <button class="btn icon-btn" id="newChatBtnHeader" style="padding:8px;" title="New Chat">
                   <span data-ic="plus"></span>
                 </button>
@@ -1176,6 +1215,31 @@ th{color:var(--soft);font-weight:700;font-size:11px;text-transform:uppercase;let
 <!-- ===== v2 · LOGIN / ROLE PICKER ===== -->
 <div class="loginwrap" id="login" style="display:none"><div class="loginbox" id="loginBox"></div></div>
 
+<!-- create-job modal · lives at body level so no card hover/animation can ever clip it -->
+<div id="jobForm" style="display:none">
+  <div class="modal-content">
+    <div class="row between" style="margin-bottom:18px">
+      <h3 style="margin:0" id="jobFormTitle">Create new role</h3>
+      <div class="iconbtn glass" onclick="document.getElementById('jobForm').style.display='none'" style="cursor:pointer;padding:4px 8px;font-weight:700">&times;</div>
+    </div>
+    <div class="formgrid">
+      <div class="field"><label>Job title</label><input id="jTitle" placeholder="e.g. Data Analyst"/></div>
+      <div class="field"><label>Department</label><select id="jDept"><option>Data &amp; Analytics</option><option>Engineering</option><option>People / HR</option><option>Sales &amp; GTM</option><option>Product</option></select></div>
+      <div class="field"><label>Location</label><input id="jLoc" placeholder="e.g. Ahmedabad (hybrid)"/></div>
+      <div class="field"><label>Type</label><select id="jType"><option>Full-time</option><option>Contract</option><option>Internship</option></select></div>
+    </div>
+    <div class="field"><label>Key skills</label><input id="jSkills" placeholder="e.g. Python, SQL, communication"/></div>
+    <div class="field"><label>Job description <span style="color:var(--soft);font-weight:500">(write it, or let Raapid draft it)</span></label><textarea id="jDesc" placeholder="Paste a description, or click ‘Draft with AI’."></textarea></div>
+    <div class="row between" style="margin-top:18px">
+      <button class="btn ghost sm" id="draftJdBtn"><span data-ic="spark"></span> Draft with AI</button>
+      <div class="row" style="gap:9px">
+        <button class="btn ghost sm" id="cancelJobBtn">Cancel</button>
+        <button class="btn sm" id="postJobBtn"><span data-ic="check"></span> Post job</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- drawer + toasts + help -->
 <div class="overlay" id="overlay"></div>
 <aside class="drawer" id="drawer"></aside>
@@ -1309,7 +1373,7 @@ const VIEWS={home:["Home","Your AI people operations, at a glance"],hire:["Hire"
  hdocs:["Documents","Verify employee documents · see who's pending what"],
  hhelp:["Helpdesk","Employee tickets — escalated by the assistant or raised directly"],
  hpayroll:["Payroll","This month's run, at a glance"],
- posh:["POSH · Internal Committee","Confidential case queue — §16 confidentiality applies"],
+ posh:["Complaints · Internal Committee","POSH & grievance queue — §16 confidentiality applies"],
  ehome:["My Home","Everything that needs you today"],
  eleaves:["My Leaves","Balances, requests and team holidays"],
  eatt:["Attendance","Your month, check-ins and corrections"],
@@ -1318,10 +1382,10 @@ const VIEWS={home:["Home","Your AI people operations, at a glance"],hire:["Hire"
  eexp:["Expenses","Claim and track reimbursements"],
  ehelp:["Helpdesk","Raise a ticket — we'll get back fast"],
  eprof:["My Profile","Your details — edits go to HR for approval"],
- espeak:["Speak Up","A safe, confidential place to report concerns"]};
+ espeak:["Anonymous Complaint","A protected channel — straight to the Internal Committee"]};
 /* nav per role: [view, icon, label] with section labels */
-const NAV_HR=[["lbl","Everyday"],["home","dashboard","Home"],["hire","recruit","Hire"],["onboard","onboard","Onboard"],["leaves","calendar","Leaves"],["hdocs","id","Documents"],["hhelp","ticket","Helpdesk"],["ask","ask","Ask Raapid"],["people","engage","People"],["lbl","Admin"],["hpayroll","wallet","Payroll"],["posh","shield","POSH · IC"],["cc","settings","Control Center"]];
-const NAV_EMP=[["lbl","My day"],["ehome","dashboard","My Home"],["eleaves","calendar","My Leaves"],["eatt","clock","Attendance"],["edocs","id","My Documents"],["lbl","Money & support"],["epay","wallet","Payslips"],["eexp","ticket","Expenses"],["ehelp","help","Helpdesk"],["ask","ask","Ask Raapid"],["lbl","Safe space"],["espeak","shield","Speak Up"],["eprof","users","My Profile"]];
+const NAV_HR=[["lbl","Everyday"],["home","dashboard","Home"],["hire","recruit","Hire"],["onboard","onboard","Onboard"],["leaves","calendar","Leaves"],["hdocs","id","Documents"],["hhelp","ticket","Helpdesk"],["ask","ask","Ask Raapid"],["people","engage","People"],["lbl","Admin"],["hpayroll","wallet","Payroll"],["posh","shield","Complaints · IC"],["cc","settings","Control Center"]];
+const NAV_EMP=[["lbl","My day"],["ehome","dashboard","My Home"],["eleaves","calendar","My Leaves"],["eatt","clock","Attendance"],["edocs","id","My Documents"],["lbl","Money & support"],["epay","wallet","Payslips"],["eexp","ticket","Expenses"],["ehelp","help","Helpdesk"],["ask","ask","Ask Raapid"],["lbl","Safe space"],["espeak","shield","Anonymous Complaint"],["eprof","users","My Profile"]];
 function renderNav(){const items=isHR()?NAV_HR:NAV_EMP;
  document.getElementById('nav').innerHTML=items.map(it=>it[0]==='lbl'?`<div class="lbl">${it[1]}</div>`:`<a data-v="${it[0]}"><span class="ic" data-ic="${it[1]}"></span> ${it[2]}</a>`).join('');
  paintIcons(document.getElementById('nav'));
@@ -1836,7 +1900,7 @@ async function askOnline(q){const u=CU();
 function offlineAnswer(q){const t=q.toLowerCase(),u=CU();
  /* 1 · safety first: POSH concerns get the safe channel, never casual chat */
  if(POSH_KEYS.some(k=>t.includes(k))&&!isHR())
-  return {a:`I'm really glad you reached out — and I want you to be safe. I won't handle this in casual chat: RAAPID has a <b>protected Speak Up channel</b> that goes <b>directly and only to the POSH Internal Committee</b>. You can report <b>confidentially</b> (identity sealed to the IC under §16) or <b>fully anonymously</b>. Retaliation against you is prohibited.`,c:"POSH-Policy.pdf",chips:[["🛡️ Open Speak Up","go('espeak')"],["⚖️ Know the law","openLegalToolkit()"]]};
+  return {a:`I'm really glad you reached out — and I'm sorry you're dealing with this. I won't handle it in casual chat: RAAPID has a <b>protected complaint channel</b> that goes <b>directly and only to the POSH Internal Committee</b>. You can report <b>confidentially</b> (identity sealed to the IC under §16) or <b>fully anonymously</b>. Retaliation against you is prohibited.`,c:"POSH-Policy.pdf",chips:[["🛡️ Open Anonymous Complaint","go('espeak')"],["⚖️ Know the law","openLegalToolkit()"]]};
  /* 2 · guardrails */
  if(isGibberish(q))return {a:`I didn't quite catch that — could you rephrase? I help with <b>HR things</b>: ${isHR()?'approvals, document verification, leaves, payroll, POSH cases':'leave, payslips, documents, expenses, tickets'} and how to use this platform.`,c:"Assistant"};
  if(isOffTopic(t))return {a:`That one's outside my lane 🙂 — I'm RAAPID's <b>HR assistant</b>, so I stick to HR and this platform. Try ${isHR()?'“how do I verify documents?” or “show pending leave requests”':"“what is my leave balance?” or “apply sick leave for tomorrow”"}.`,c:"Assistant"};
@@ -2271,7 +2335,7 @@ function renderHelp(){
     ["clock","Fix a missed punch","go('eatt')"],
     ["wallet","See my payslips","go('epay')"],
     ["help","Raise a helpdesk ticket","go('ehelp');openTicket()"],
-    ["shield","Speak Up (confidential)","go('espeak')"]];
+    ["shield","Anonymous complaint (protected)","go('espeak')"]];
  document.getElementById('helpItems').innerHTML=HELP.map(h=>`<div class="hpitem" onclick="${h[2]};closeHelp()"><span class="hi">${svg(h[0])}</span> ${h[1]}</div>`).join('');
 }
 renderHelp();
@@ -2289,16 +2353,21 @@ function renderWorklist(){
  const lvQ=DB.leaves.filter(l=>l.status==='Pending').length;
  const tkQ=DB.tickets.filter(t=>t.status==='Open').length;
  const govQ=4+DB.expenses.filter(x=>x.status==='Pending').length+DB.profileChanges.filter(p=>p.status==='Pending').length+DB.regularizations.filter(r=>r.status==='Pending').length;
- const poshQ=DB.poshCases.filter(c=>c.status!=='Closed').length;
+ const openCases=DB.poshCases.filter(c=>c.status!=='Closed');
+ const poshQ=openCases.length;
+ const newest=openCases[0];
+ /* complaints come FIRST and in red — people-safety before everything else */
+ const urgent=poshQ?`<div class="wl urgent" onclick="go('posh')"><div class="wi">${svg('shield')}</div>
+   <div style="flex:1"><div style="font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px"><span class="urgdot"></span>${poshQ} complaint${poshQ===1?'':'s'} in the committee queue — act first <span class="urgtag">priority</span></div>
+   <div style="font-size:11.5px;color:var(--soft);margin-top:2px">Latest: ${newest.id} · ${newest.category||'Sexual harassment (POSH)'} · ${newest.mode==='anonymous'?'anonymous':'confidential (§16)'} · ${newest.status}</div></div><span class="cv">${svg('arrow')}</span></div>`:'';
  const WORK=[
   ["govern",govQ+" approvals waiting","Payroll, access, expenses & profile changes","go('cc');ccGo('govern')","b1"],
   ["calendar",lvQ+" leave request"+(lvQ===1?'':'s')+" pending","Includes self-service requests from the employee portal","go('leaves')","b4"],
   ["id",docQ+" document"+(docQ===1?'':'s')+" to verify","Employee uploads awaiting your check","go('hdocs')","b5"],
   ["help",tkQ+" open ticket"+(tkQ===1?'':'s'),"Helpdesk inbox — assistant escalations & direct","go('hhelp')","b3"],
-  ["shield",poshQ+" POSH case"+(poshQ===1?'':'s')+" in IC queue","Confidential — §16 protections apply","go('posh')","b2"],
   ["onboard","1 joiner this week","Priya Sharma · Data Analyst · documents pending","go('hdocs')","b2"],
   ["engage","“Workload balance” pulse dipped","Suggested: nudge managers to check in","go('people')","b3"]];
- document.getElementById('worklist').innerHTML=WORK.map(w=>`<div class="wl" onclick="${w[3]}"><div class="wi ${w[4]}">${svg(w[0])}</div><div><div style="font-size:13px;font-weight:600">${w[1]}</div><div style="font-size:11.5px;color:var(--soft)">${w[2]}</div></div><span class="cv">${svg('arrow')}</span></div>`).join('');paintIcons(document.getElementById('worklist'));}
+ document.getElementById('worklist').innerHTML=urgent+WORK.map(w=>`<div class="wl" onclick="${w[3]}"><div class="wi ${w[4]}">${svg(w[0])}</div><div><div style="font-size:13px;font-weight:600">${w[1]}</div><div style="font-size:11.5px;color:var(--soft)">${w[2]}</div></div><span class="cv">${svg('arrow')}</span></div>`).join('');paintIcons(document.getElementById('worklist'));}
 
 /* ---------- candidate detail drawer ---------- */
 function openCandidate(ci){const c=CANDS[ci];
@@ -2602,10 +2671,13 @@ function renderEHome(){const u=CU();const myLv=DB.leaves.filter(l=>l.empId===u.i
  DB.regularizations.filter(r=>r.empId===u.id&&r.status==='Pending').forEach(r=>todo.push(['clock',`Attendance correction pending`,`${r.day} · with HR`,"go('eatt')",'b3']));
  if(!todo.length)todo.push(['check','You are all caught up 🎉','Nothing needs your attention right now',"",'b2']);
  document.getElementById('ehomeWrap').innerHTML=`
-  <div class="card glass" style="margin-bottom:16px"><div class="row between"><h3 style="margin:0">Good day, ${firstName(u.name)} 👋</h3><span class="cite">${svg('info')} ${u.role} · joined ${u.joined}</span></div>
-   <div style="margin-top:6px">${todo.map(w=>`<div class="wl" ${w[3]?`onclick="${w[3]}"`:''}><div class="wi ${w[4]}">${svg(w[0])}</div><div><div style="font-size:13px;font-weight:600">${w[1]}</div><div style="font-size:11.5px;color:var(--soft)">${w[2]}</div></div>${w[3]?`<span class="cv">${svg('arrow')}</span>`:''}</div>`).join('')}</div></div>
+  <div class="ehero" style="margin-bottom:16px"><div class="row between wrap" style="gap:10px;position:relative;z-index:1">
+    <div class="row" style="gap:14px"><div class="avatar" style="width:50px;height:50px;font-size:17px;background:${EMP_COLORS[u.id]}">${u.init}</div>
+     <div><h3 style="margin:0;font-size:19px;letter-spacing:-.4px">Good day, ${firstName(u.name)} 👋</h3><p class="hint" style="margin:4px 0 0">${u.role} · ${u.dept} · joined ${u.joined}</p></div></div>
+    <span class="badge ${todo[0][0]==='check'?'st-ok':'st-pend'}" style="height:fit-content">${todo[0][0]==='check'?'All caught up':todo.length+' thing'+(todo.length>1?'s':'')+' need you'}</span></div>
+   <div style="margin-top:14px;position:relative;z-index:1">${todo.map(w=>`<div class="wl" ${w[3]?`onclick="${w[3]}"`:''}><div class="wi ${w[4]}">${svg(w[0])}</div><div><div style="font-size:13px;font-weight:600">${w[1]}</div><div style="font-size:11.5px;color:var(--soft)">${w[2]}</div></div>${w[3]?`<span class="cv">${svg('arrow')}</span>`:''}</div>`).join('')}</div></div>
   <div class="grid g3">
-   ${Object.keys(bal).map(t=>`<div class="card glass kpi" style="cursor:pointer" onclick="go('eleaves')"><div class="top"><div class="ico b1">${svg('calendar')}</div></div><div class="k">${bal[t].total-bal[t].used}</div><div class="l">${t} left · ${bal[t].used}/${bal[t].total} used</div></div>`).join('')}
+   ${Object.keys(bal).map(t=>{const left=bal[t].total-bal[t].used,pct=Math.round(left/bal[t].total*100);return `<div class="card glass kpi" style="cursor:pointer" onclick="go('eleaves')"><div class="top"><div class="ico b1">${svg('calendar')}</div><span class="trend ${pct>30?'up':'flat'}">${pct}% left</span></div><div class="k">${left}</div><div class="l">${t} · ${bal[t].used}/${bal[t].total} used</div><div class="balmini"><i style="width:${pct}%"></i></div></div>`;}).join('')}
   </div>
   <div class="grid g2e" style="margin-top:18px">
    <div class="card glass"><h3>Quick actions</h3><p class="hint">The things you'll do most</p>
@@ -2617,7 +2689,7 @@ function renderEHome(){const u=CU();const myLv=DB.leaves.filter(l=>l.empId===u.i
      <span class="actchip" onclick="go('ehelp')">${svg('help')} Raise a ticket</span>
      <span class="actchip" onclick="go('ask')">${svg('ask')} Ask Raapid</span>
     </div>
-    <div class="note" style="margin-top:14px">${svg('shield')} <b>Speak Up:</b> a safe, confidential channel for harassment or misconduct concerns — anonymous if you choose. <a style="color:var(--brand);font-weight:700;cursor:pointer" onclick="go('espeak')">Open Speak Up →</a></div></div>
+    <div class="note" style="margin-top:14px;border-color:rgba(13,148,136,.3)">${svg('shield')} <b>Anonymous Complaint:</b> a protected channel for harassment or misconduct — goes straight to the Internal Committee, anonymous if you choose. <a style="color:#0d9488;font-weight:700;cursor:pointer" onclick="go('espeak')">Open it →</a></div></div>
    <div class="card glass"><h3>${u.isNew?'Your onboarding · week 1':'This month'}</h3>
     ${u.isNew?`<p class="hint">Finish these to be fully set up</p>${tasks.map((t,i)=>`<div class="check"><span class="ck" style="${t.done?'':'background:var(--chip);color:var(--soft)'}">${svg(t.done?'check':'clock')}</span><div style="flex:1;${t.done?'text-decoration:line-through;color:var(--soft)':''}">${t.t}</div>${!t.done&&t.go?`<button class="btn ghost tiny" onclick="go('${t.go}')">Do it</button>`:''}</div>`).join('')}`
     :`<p class="hint">Your snapshot</p>
@@ -2637,7 +2709,7 @@ function renderELeaves(){const u=CU();const bal=DB.balances[u.id];const my=DB.le
     <button class="btn sm" onclick="openApplyLeave()">${svg('plus')} Apply leave</button></div>
     <div id="myLeaveList">${my.length?my.map(l=>`<div class="approw" style="margin-top:12px"><div class="ico b1" style="width:38px;height:38px">${svg('calendar')}</div>
       <div style="flex:1"><div style="font-size:13px;font-weight:700">${l.type} · ${l.dates}</div><div style="font-size:11.5px;color:var(--soft);margin-top:2px">${l.desc||''} ${l.agent?'· <b style="color:var(--brand)">filed by Raapid agent</b>':''}</div></div>
-      <span class="badge ${l.status==='Pending'?'st-pend':l.status.includes('Approved')?'st-ok':'st-rej'} statusflip">${l.status==='Pending'?'Pending with HR':l.status}</span></div>`).join(''):`<div class="kempty" style="height:100px">No requests yet — apply for your first leave</div>`}</div></div>
+      <span class="badge ${l.status==='Pending'?'st-pend':l.status.includes('Approved')?'st-ok':'st-rej'} statusflip">${l.status==='Pending'?'Pending with HR':l.status}</span></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('calendar')}</div><b>No leave requests yet</b><p>Apply for your first leave — it goes straight to HR and you track it live here.</p></div>`}</div></div>
    <div class="card glass"><h3>Holidays · 2026</h3><p class="hint">Company holiday calendar</p>
     ${[['Aug 15','Independence Day'],['Oct 02','Gandhi Jayanti'],['Oct 20','Diwali'],['Oct 21','Diwali (2nd day)'],['Nov 05','Guru Nanak Jayanti'],['Dec 25','Christmas']].map(h=>`<div class="payslip-row"><span><b>${h[0]}</b> · ${h[1]}</span><span class="badge st-req">Holiday</span></div>`).join('')}
     <div class="note" style="margin-top:12px">${svg('info')} <b>Policy:</b> Casual needs 1-day notice · Sick ≤2 days auto-approves · Earned needs 7-day notice. <span style="color:var(--brand);font-weight:700;cursor:pointer" onclick="go('ask')">Ask Raapid for details →</span></div></div>
@@ -2668,13 +2740,13 @@ function submitLeave(agentMeta){
 const ATT_EXC={emp2:{missed:[9]},emp3:{missed:[5]},emp1:{}};
 function attState(u,day){const dow=new Date(2026,5,day).getDay();
  if(dow===0||dow===6)return 'we';
- if(day>11)return '';
+ if(day>12)return '';
  const reg=DB.regularizations.find(r=>r.empId===u.id&&r.day==='Jun '+String(day).padStart(2,'0'));
  if(reg)return reg.status==='Approved'?'p':'m';
  if((ATT_EXC[u.id].missed||[]).includes(day))return 'm';
  if(u.isNew&&day<8)return '';
  return 'p';}
-function renderEAtt(){const u=CU();const today=11;const checked=DB['checkin_'+u.id];
+function renderEAtt(){const u=CU();const today=12;const checked=DB['checkin_'+u.id];
  let cal='';['M','T','W','T','F','S','S'].forEach(d=>cal+=`<div style="font-weight:800;color:var(--soft)">${d}</div>`);
  const pad=(new Date(2026,5,1).getDay()+6)%7;for(let i=0;i<pad;i++)cal+='<div></div>';
  for(let day=1;day<=30;day++){const st=attState(u,day);
@@ -2691,7 +2763,7 @@ function renderEAtt(){const u=CU();const today=11;const checked=DB['checkin_'+u.
    <div class="card glass"><h3>My corrections</h3><p class="hint">Regularization requests and their status</p>
     ${myReg.length?myReg.map(r=>`<div class="approw" style="margin-top:12px"><div class="ico b3" style="width:38px;height:38px">${svg('clock')}</div>
      <div style="flex:1"><div style="font-size:13px;font-weight:700">${r.day} · missed punch</div><div style="font-size:11.5px;color:var(--soft)">${r.reason}</div></div>
-     <span class="badge ${r.status==='Pending'?'st-pend':r.status==='Approved'?'st-ok':'st-rej'} statusflip">${r.status==='Pending'?'Pending with HR':r.status}</span></div>`).join(''):'<div class="kempty" style="height:90px">No corrections needed</div>'}</div>
+     <span class="badge ${r.status==='Pending'?'st-pend':r.status==='Approved'?'st-ok':'st-rej'} statusflip">${r.status==='Pending'?'Pending with HR':r.status}</span></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('check')}</div><b>No corrections needed</b><p>Your attendance is clean — red days on the calendar can be fixed from here.</p></div>`}</div>
   </div>`;
  paintIcons(document.getElementById('eattWrap'));}
 function webCheck(){const u=CU();if(DB['checkin_'+u.id]){toast('Already checked in today','info');return;}
@@ -2723,7 +2795,7 @@ function renderEDocs(){const u=CU();const docs=DB.documents[u.id]||[];const myRe
     <button class="btn ghost sm" onclick="openDocRequest()">${svg('plus')} New request</button></div>
     ${myReq.length?myReq.map(r=>`<div class="approw" style="margin-top:12px"><div class="ico b4" style="width:38px;height:38px">${svg('doc')}</div>
      <div style="flex:1"><div style="font-size:13px;font-weight:700">${r.type}</div><div style="font-size:11.5px;color:var(--soft)">${r.reason||''}</div></div>
-     <span class="badge ${r.status==='Ready'?'st-ok':'st-pend'} statusflip">${r.status==='Ready'?'Ready · download from HR':'Being prepared'}</span></div>`).join(''):'<div class="kempty" style="height:90px">No letter requests yet</div>'}</div>
+     <span class="badge ${r.status==='Ready'?'st-ok':'st-pend'} statusflip">${r.status==='Ready'?'Ready · download from HR':'Being prepared'}</span></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('doc')}</div><b>No letter requests yet</b><p>Need a salary certificate or experience letter? Request it and HR prepares it.</p></div>`}</div>
   </div>`;
  paintIcons(document.getElementById('edocsWrap'));}
 let _upIdx=null;
@@ -2782,7 +2854,7 @@ function renderEExp(){const u=CU();const my=DB.expenses.filter(x=>x.empId===u.id
    <button class="btn sm" onclick="openExpense()">${svg('plus')} New claim</button></div>
    ${my.length?my.map(x=>`<div class="approw" style="margin-top:12px"><div class="ico b4" style="width:38px;height:38px">${svg('ticket')}</div>
     <div style="flex:1"><div style="font-size:13px;font-weight:700">${x.cat} · ${inr(x.amount)}</div><div style="font-size:11.5px;color:var(--soft)">${x.desc} · ${x.receipt||'no receipt'}</div></div>
-    <span class="badge ${x.status==='Pending'?'st-pend':x.status==='Approved'?'st-ok':'st-rej'} statusflip">${x.status==='Pending'?'Pending with HR':x.status}</span></div>`).join(''):'<div class="kempty" style="height:100px">No claims yet</div>'}</div>`;
+    <span class="badge ${x.status==='Pending'?'st-pend':x.status==='Approved'?'st-ok':'st-rej'} statusflip">${x.status==='Pending'?'Pending with HR':x.status}</span></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('ticket')}</div><b>No claims yet</b><p>Submit your first expense — internet, travel, meals — and track the payout here.</p></div>`}</div>`;
  paintIcons(document.getElementById('eexpWrap'));}
 function openExpense(){drawer.innerHTML=`<div class="row between"><div><div style="font-weight:800;font-size:18px">New expense claim</div><div style="font-size:12px;color:var(--soft)">Goes to HR/Finance for approval</div></div><div class="iconbtn glass" onclick="closeDrawer()">${svg('close')}</div></div>
   <div style="margin-top:18px">
@@ -2809,7 +2881,7 @@ function renderEHelp(){const u=CU();const my=DB.tickets.filter(t=>t.empId===u.id
    ${my.length?my.map(t=>`<div class="approw" style="margin-top:12px;align-items:flex-start"><div class="ico b3" style="width:38px;height:38px;margin-top:2px">${svg('help')}</div>
     <div style="flex:1"><div style="font-size:13px;font-weight:700">${t.subject}</div><div style="font-size:12px;color:var(--soft);margin-top:2px">${t.msg}</div>
     ${t.reply?`<div class="note" style="margin-top:8px;font-size:12px"><b>HR replied:</b> ${t.reply}</div>`:''}</div>
-    <span class="badge ${t.status==='Open'?'st-pend':'st-ok'} statusflip">${t.status}</span></div>`).join(''):'<div class="kempty" style="height:100px">No tickets — try asking Raapid first</div>'}
+    <span class="badge ${t.status==='Open'?'st-pend':'st-ok'} statusflip">${t.status}</span></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('ask')}</div><b>No tickets</b><p>Ask Raapid first — it answers instantly from policy, and raises a ticket if needed.</p></div>`}
    <div class="note" style="margin-top:14px">${svg('ask')} Quick question? <span style="color:var(--brand);font-weight:700;cursor:pointer" onclick="go('ask')">Ask Raapid</span> — it answers from policy instantly, and can raise a ticket for you if it can't.</div></div>`;
  paintIcons(document.getElementById('ehelpWrap'));}
 function openTicket(prefSubject,prefMsg){drawer.innerHTML=`<div class="row between"><div><div style="font-weight:800;font-size:18px">New helpdesk ticket</div><div style="font-size:12px;color:var(--soft)">HR typically replies within a day</div></div><div class="iconbtn glass" onclick="closeDrawer()">${svg('close')}</div></div>
@@ -2837,7 +2909,7 @@ function renderEProf(){const u=CU();const pend=DB.profileChanges.filter(p=>p.emp
    <div class="card glass"><h3>My change requests</h3><p class="hint">Awaiting HR verification</p>
     ${DB.profileChanges.filter(p=>p.empId===u.id).map(p=>`<div class="approw" style="margin-top:12px"><div class="ico b1" style="width:38px;height:38px">${svg('users')}</div>
      <div style="flex:1"><div style="font-size:13px;font-weight:700">${p.field}: ${p.from} → ${p.to}</div><div style="font-size:11.5px;color:var(--soft)">${p.ts}</div></div>
-     <span class="badge ${p.status==='Pending'?'st-pend':p.status==='Approved'?'st-ok':'st-rej'} statusflip">${p.status}</span></div>`).join('')||'<div class="kempty" style="height:90px">No pending changes</div>'}</div>
+     <span class="badge ${p.status==='Pending'?'st-pend':p.status==='Approved'?'st-ok':'st-rej'} statusflip">${p.status}</span></div>`).join('')||`<div class="empty-state"><div class="es-ic">${svg('check')}</div><b>No pending changes</b><p>Profile edits you make will wait here for HR verification.</p></div>`}</div>
   </div>`;
  paintIcons(document.getElementById('eprofWrap'));}
 function editProfile(field,key){const u=CU();
@@ -2857,53 +2929,78 @@ function submitProfileChange(field,key){const u=CU();const nv=document.getElemen
    ============================================================ */
 let poshMode='confidential';
 function renderESpeak(){const u=CU();const mine=DB.poshCases.filter(c=>c.empId===u.id);
+ const anon=poshMode==='anonymous';
+ const accentBtn=anon?'background:linear-gradient(135deg,#dc2626,#b91c1c);box-shadow:0 4px 14px rgba(220,38,38,.35)':'background:linear-gradient(135deg,#0d9488,#0f766e);box-shadow:0 4px 12px rgba(13,148,136,.3)';
  document.getElementById('espeakWrap').innerHTML=`
-  <div class="posh-hero"><div class="row" style="gap:16px;align-items:flex-start">
+ <div class="posh-shell ${anon?'anon':''}">
+  <div class="posh-hero" style="margin-bottom:18px"><div class="row wrap" style="gap:16px;align-items:flex-start">
     <div class="posh-ic">${svg('shield')}</div>
-    <div style="flex:1"><h3 style="margin:0">A safe, confidential place to report</h3>
-     <p class="hint" style="margin:7px 0 0;max-width:640px">If you have experienced or witnessed sexual harassment or serious misconduct, you can report it here. Your report goes <b>directly and only to the POSH Internal Committee (IC)</b> — never to your manager or team. <b>RAAPID strictly prohibits retaliation</b> against anyone who reports in good faith.</p></div>
+    <div style="flex:1;min-width:240px"><h3 style="margin:0">Raise a complaint — safely</h3>
+     <p class="hint" style="margin:7px 0 0;max-width:640px">Harassment, discrimination, bullying, safety, payroll or any serious concern. Your report goes <b>directly to the right committee</b> (POSH matters → the Internal Committee) — never to your manager or team. <b>Retaliation against you is strictly prohibited.</b></p></div>
     <button class="btn ghost sm" onclick="openLegalToolkit()">${svg('scale')} Know the law</button></div></div>
-  <div class="sectitle">How would you like to report?</div>
-  <div class="row wrap" style="gap:14px;align-items:stretch">
-   <div class="posh-mode ${poshMode==='confidential'?'sel':''}" onclick="poshMode='confidential';renderESpeak()">
-    <div class="row between"><b>Confidential complaint</b><span class="posh-tag">Formal · POSH Act</span></div>
-    <p>Your name is attached, but <b>visible only to the Internal Committee</b> — protected by <b>Section 16</b> of the POSH Act. This starts the formal inquiry process with full legal protections and a written outcome.</p></div>
-   <div class="posh-mode ${poshMode==='anonymous'?'sel':''}" onclick="poshMode='anonymous';renderESpeak()">
-    <div class="row between"><b>Anonymous tip</b><span class="posh-tag">No identity</span></div>
-    <p>We collect <b>no identity at all</b>. The IC will run a <b>preliminary assessment</b> (per the Kerala HC position) — note a formal inquiry under the Act needs a named complaint, which you can file later at any time.</p></div>
+
+  <div class="modeseg">
+   <button class="${!anon?'on-teal':''}" onclick="poshMode='confidential';renderESpeak()">${svg('lock')} Confidential — name sealed to IC</button>
+   <button class="${anon?'on-red':''}" onclick="poshMode='anonymous';renderESpeak()">${svg('eyeoff')} Anonymous — no identity at all</button>
   </div>
-  <div class="grid g2" style="margin-top:18px">
-   <div class="card glass"><h3>${poshMode==='confidential'?'Confidential report':'Anonymous tip'}</h3>
-    <p class="hint">${poshMode==='confidential'?`Filed as <b>${u.name}</b> — identity sealed to the IC only.`:'No name, no employee ID, nothing identifying is stored.'}</p>
-    <div class="field"><label>When did it happen?</label><input id="poshDate" type="date" max="2026-06-11"/></div>
-    <div class="field"><label>What happened?</label><textarea id="poshDetails" style="min-height:120px" placeholder="Describe the incident in your own words. Include where it happened and who was involved if you can."></textarea></div>
-    ${poshMode==='confidential'?'<div class="field"><label>Witness (optional)</label><input id="poshWitness" placeholder="Anyone who saw or knows about it"/></div>':''}
-    <div class="note" id="poshNote">${svg('lock')} ${poshMode==='confidential'?'Sealed to the IC under §16 — not visible in any general HR view, report or audit log.':'Nothing identifying is collected or stored with this tip.'}</div>
-    <button class="btn" style="width:100%;justify-content:center;margin-top:14px;background:linear-gradient(135deg,#0d9488,#0f766e);box-shadow:0 4px 12px rgba(13,148,136,.3)" onclick="submitPosh()">${svg('shield')} Submit ${poshMode==='confidential'?'confidential report':'anonymous tip'}</button></div>
-   <div class="card glass"><h3>What happens next</h3><p class="hint">The process, step by step</p>
+
+  <div class="empathy ${anon?'red':'teal'}">
+   <div class="em-ic">${svg(anon?'eyeoff':'engage')}</div>
+   <div><b>${anon?'We are truly sorry you are going through this.':'You are not alone — and you are protected.'}</b>
+    <p>${anon
+     ?'No one should have to face this at work, and it took courage to come here. <b>Anonymous mode is now ON</b> — we collect <b>no name, no employee ID, nothing identifying</b>. Take your time, write what you can, and the Internal Committee will treat it with complete seriousness (a preliminary assessment, per the Kerala High Court position). If you ever feel ready, a confidential named complaint unlocks the full formal inquiry — entirely your choice, at your pace.'
+     :'Thank you for trusting this channel. Your name will be attached so the IC can run the <b>formal inquiry the law provides</b> — but it stays <b>sealed to the Internal Committee only</b> under §16 of the POSH Act: never your manager, never your team, never a general HR report. You can also ask for interim relief (transfer, leave, no-contact) while the inquiry runs.'}</p></div>
+  </div>
+
+  <div class="grid g2">
+   <div class="card glass"><h3>${anon?'Anonymous complaint':'Confidential complaint'}</h3>
+    <p class="hint">${anon?'Nothing identifying is stored with this report.':`Filed as <b>${u.name}</b> — identity sealed to the IC only (§16).`}</p>
+    <div class="field"><label>Complaint type</label><select id="poshCat">
+      <option>Sexual harassment (POSH)</option>
+      <option>Discrimination or bias</option>
+      <option>Bullying / verbal abuse</option>
+      <option>Manager misconduct</option>
+      <option>Workplace safety</option>
+      <option>Salary / payroll grievance</option>
+      <option>Other concern</option></select></div>
+    <div class="field"><label>When did it happen?</label><input id="poshDate" type="date" max="2026-06-12"/></div>
+    <div class="field"><label>What happened?</label><textarea id="poshDetails" style="min-height:130px" placeholder="Describe the incident in your own words. Include where it happened and who was involved if you can. There is no wrong way to write this."></textarea></div>
+    ${!anon?'<div class="field"><label>Witness (optional)</label><input id="poshWitness" placeholder="Anyone who saw or knows about it"/></div>':''}
+    <div style="margin:4px 0 6px">
+     <div class="assure">${svg('lock')} ${anon?'No name, no employee ID, no device info is stored':'Identity visible only to the 4-member Internal Committee'}</div>
+     <div class="assure">${svg('govern')} Goes straight to the IC — bypasses managers & general HR</div>
+     <div class="assure">${svg('shield')} Retaliation is itself a punishable offence — you are protected</div>
+     <div class="assure" style="border-bottom:0">${svg('clock')} IC acknowledges within 7 days · inquiry capped at 90 days</div>
+    </div>
+    <button class="btn" style="width:100%;justify-content:center;margin-top:10px;${accentBtn}" onclick="submitPosh()">${svg('shield')} Submit ${anon?'anonymous complaint':'confidential complaint'}</button></div>
+   <div class="card glass"><h3>What happens next</h3><p class="hint">The process, step by step — time-bound by law</p>
     <div class="timeline" style="margin-top:14px">
-     <div class="tstep done"><b>Received</b><p>Your report lands directly in the IC's sealed queue — same day.</p></div>
-     <div class="tstep"><b>IC review</b><p>The Internal Committee (4 members, presided by a senior woman employee + an external member) reviews it within 7 days.</p></div>
-     <div class="tstep"><b>Inquiry</b><p>${poshMode==='confidential'?'Formal inquiry: both sides heard, completed within 90 days. You may request interim relief (transfer / leave).':'Preliminary assessment of the information. If a prima facie case appears, the IC acts on it.'}</p></div>
-     <div class="tstep"><b>Outcome</b><p>Written recommendation to the employer; action within 60 days. You get a copy.</p></div>
+     <div class="tstep done"><b>Received — same day</b><p>Your report lands directly in the IC's sealed queue. You get a case ID to track it here.</p></div>
+     <div class="tstep"><b>IC review — within 7 days</b><p>The Internal Committee (presided by a senior woman employee, incl. an external member) takes it up.</p></div>
+     <div class="tstep"><b>${anon?'Preliminary assessment':'Inquiry — within 90 days'}</b><p>${anon?'The IC assesses the information; if a prima facie case appears, it must act on it (Kerala HC).':'Formal inquiry: both sides heard, completed within 90 days. You may request interim relief (transfer / leave / no-contact).'}</p></div>
+     <div class="tstep"><b>Outcome — action within 60 days</b><p>Written recommendation to the employer${anon?'.':' — you receive a copy.'}</p></div>
     </div>
     ${mine.length?`<div class="sectitle">My reports</div>${mine.map(c=>`<div class="payslip-row"><span><b>${c.id}</b> · filed ${c.ts}</span><span class="badge st-pend statusflip">${c.status}</span></div>`).join('')}`:''}
    </div>
-  </div>`;
+  </div>
+ </div>`;
  paintIcons(document.getElementById('espeakWrap'));}
 function submitPosh(){const u=CU();const details=document.getElementById('poshDetails').value.trim();const dated=document.getElementById('poshDate').value;
+ const cat=document.getElementById('poshCat')?document.getElementById('poshCat').value:'Sexual harassment (POSH)';
+ const isPosh=cat.includes('POSH');
  if(!details||details.length<20){toast('Please describe what happened (a little more detail)','info');return;}
- if(dated){const diff=(new Date('2026-06-11')-new Date(dated))/86400000;
+ if(dated&&isPosh){const diff=(new Date('2026-06-12')-new Date(dated))/86400000;
   if(diff>90&&poshMode==='confidential'&&!confirm('The POSH Act\'s normal window is 3 months from the incident, but the IC can extend it by 3 more months for valid reasons — and you should absolutely still report. Continue?'))return;}
- const caseId='POSH-2026-'+String(DB.poshCases.length+8).padStart(3,'0');
- DB.poshCases.unshift({id:caseId,mode:poshMode,empId:poshMode==='confidential'?u.id:null,dated:dated||'—',details,witness:poshMode==='confidential'?(document.getElementById('poshWitness')?.value||''):'',status:'Received',ts:'now'});
+ const caseId=(isPosh?'POSH':'GRV')+'-2026-'+String(DB.poshCases.length+8).padStart(3,'0');
+ DB.poshCases.unshift({id:caseId,mode:poshMode,category:cat,empId:poshMode==='confidential'?u.id:null,dated:dated||'—',details,witness:poshMode==='confidential'?(document.getElementById('poshWitness')?.value||''):'',status:'Received',ts:'now'});
  saveDB();
- logAudit('Speak Up',`${poshMode==='confidential'?'Confidential POSH report':'Anonymous POSH tip'} received — case ${caseId} · identity ${poshMode==='confidential'?'sealed to IC (§16)':'not collected'}`,'IC queue');
- drawer.innerHTML=`<div style="text-align:center;padding:30px 10px">
-  <div class="posh-ic" style="margin:0 auto 16px;width:60px;height:60px;font-size:28px">${svg('shield')}</div>
-  <div style="font-weight:800;font-size:20px">Report received</div>
-  <p style="color:var(--muted);font-size:13.5px;line-height:1.6;max-width:340px;margin:10px auto">Your case ID is <b style="color:#0d9488">${caseId}</b>.<br/>${poshMode==='confidential'?'Only the Internal Committee can see your identity (POSH Act §16). You\'ll hear from the IC within 7 days.':'No identifying information was stored. The IC will run a preliminary assessment.'}<br/><br/><b>Retaliation against you is prohibited and is itself a punishable offence.</b></p>
-  <button class="btn" style="margin-top:10px;background:linear-gradient(135deg,#0d9488,#0f766e)" onclick="closeDrawer();renderESpeak()">Done</button></div>`;
+ logAudit('Complaint channel',`${poshMode==='confidential'?'Confidential':'Anonymous'} complaint (${cat}) received — case ${caseId} · identity ${poshMode==='confidential'?'sealed to committee (§16)':'not collected'}`,'committee queue');
+ const anon2=poshMode==='anonymous';
+ drawer.innerHTML=`<div style="text-align:center;padding:34px 14px">
+  <div class="posh-ic" style="margin:0 auto 16px;width:62px;height:62px;font-size:28px;${anon2?'background:rgba(220,38,38,.12);color:#dc2626':''}">${svg('shield')}</div>
+  <div style="font-weight:800;font-size:20px;letter-spacing:-.3px">${anon2?'We hear you. Report received.':'Thank you for trusting us. Report received.'}</div>
+  <p style="color:var(--muted);font-size:13.5px;line-height:1.7;max-width:360px;margin:12px auto">${anon2?'We are sorry this happened to you — and we take it seriously.':'You did the right thing by coming forward.'}<br/>Your case ID is <b style="color:${anon2?'#dc2626':'#0d9488'}">${caseId}</b> — track it on this page anytime.<br/>${poshMode==='confidential'?'Only the Internal Committee can see your identity (POSH Act §16). The IC will reach out within <b>7 days</b>.':'No identifying information was stored. The IC will run a preliminary assessment of your report.'}<br/><br/><b>Retaliation against you is prohibited — it is itself a punishable offence.</b> If you feel unsafe right now, the EAP confidential helpline is available 24×7.</p>
+  <button class="btn" style="margin-top:10px;${anon2?'background:linear-gradient(135deg,#dc2626,#b91c1c);box-shadow:0 4px 14px rgba(220,38,38,.35)':'background:linear-gradient(135deg,#0d9488,#0f766e)'}" onclick="closeDrawer();renderESpeak()">Done</button></div>`;
  paintIcons(drawer);overlay.classList.add('open');drawer.classList.add('open');}
 
 /* ----- HR · POSH IC view ----- */
@@ -2921,8 +3018,8 @@ function renderPoshIC(){const cases=DB.poshCases;
   </div>
   ${cases.map((c,i)=>{const steps=['Received','IC review','Inquiry','Closed'];const si=steps.indexOf(c.status==='IC review'?'IC review':c.status);
    return `<div class="card glass" style="margin-bottom:14px"><div class="row between wrap" style="gap:10px">
-    <div class="row" style="gap:12px"><div class="posh-ic" style="width:38px;height:38px;font-size:17px">${svg('shield')}</div>
-     <div><b style="font-size:14px">${c.id}</b> <span class="posh-tag" style="margin-left:8px">${c.mode==='anonymous'?'Anonymous — preliminary assessment required':'Confidential — identity sealed (§16)'}</span>
+    <div class="row" style="gap:12px"><div class="posh-ic" style="width:38px;height:38px;font-size:17px;${c.mode==='anonymous'?'background:rgba(220,38,38,.12);color:#dc2626':''}">${svg('shield')}</div>
+     <div><b style="font-size:14px">${c.id}</b> <span class="urgtag" style="margin-left:8px;background:${(c.category||'Sexual harassment (POSH)').includes('POSH')?'#dc2626':'#d97706'}">${c.category||'Sexual harassment (POSH)'}</span> <span class="posh-tag" style="margin-left:6px">${c.mode==='anonymous'?'Anonymous — preliminary assessment':'Confidential — identity sealed (§16)'}</span>
       <div style="font-size:11.5px;color:var(--soft);margin-top:3px">Incident date: ${c.dated} · filed ${c.ts}</div></div></div>
     <span class="badge ${c.status==='Closed'?'st-ok':'st-pend'}">${c.status}</span></div>
     <p style="font-size:13px;color:var(--muted);line-height:1.6;margin:12px 0 0">${c.details}</p>
@@ -2934,7 +3031,7 @@ function renderPoshIC(){const cases=DB.poshCases;
        <button class="btn ghost sm" onclick="unmaskPosh(${i})">${svg('eyeoff')} Open IC view (logged)</button></div>`)
      :`<div class="note">${svg('eyeoff')} No identity was collected with this tip. Per the Kerala HC position, the IC runs a <b>preliminary assessment</b>; a formal inquiry needs a named complaint.</div>`}</div>
     <div class="row wrap" style="gap:8px;margin-top:14px">${steps.map((s,sx)=>sx>si&&sx<=si+1&&c.status!=='Closed'?`<button class="btn sm" style="background:linear-gradient(135deg,#0d9488,#0f766e)" onclick="advancePosh(${i},'${s}')">Move to: ${s}</button>`:`<span class="badge ${sx<=si?'st-ok':'st-req'}">${s}</span>`).join('')}</div>
-   </div>`;}).join('')||'<div class="kempty" style="height:120px">No cases — the queue is clear</div>'}
+   </div>`;}).join('')||`<div class="empty-state"><div class="es-ic">${svg('shield')}</div><b>The queue is clear</b><p>No open POSH cases. New reports land here, sealed under §16.</p></div>`}
   <div class="note">${svg('govern')} <b>IC composition (compliant):</b> Presiding Officer — senior woman employee · 2 employee members · 1 external member (NGO / legal background). At least half the IC must be women. Annual report filed with the District Officer.</div>`;
  paintIcons(document.getElementById('poshWrap'));}
 function unmaskPosh(i){DB.poshCases[i].unmasked=true;saveDB();
@@ -2978,7 +3075,7 @@ function renderHDocs(){
     <p class="hint">Uploaded by employees — verify or send back. Status reflects on their side instantly.</p>
     ${queue.length?queue.map((q,i)=>`<div class="approw" style="margin-top:12px"><div class="ico b1" style="width:38px;height:38px">${svg('id')}</div>
      <div style="flex:1"><div style="font-size:13px;font-weight:700">${q.d.name} · ${q.e.name}</div><div style="font-size:11.5px;color:var(--soft)">${q.d.file} · uploaded ${q.d.ts}</div></div>
-     <div class="row" style="gap:7px"><button class="btn tiny ghost" onclick="hrDocAction('${q.e.id}',${q.di},false)">Send back</button><button class="btn tiny" onclick="hrDocAction('${q.e.id}',${q.di},true)">Verify</button></div></div>`).join(''):'<div class="kempty" style="height:90px">Queue clear 🎉</div>'}</div>
+     <div class="row" style="gap:7px"><button class="btn tiny ghost" onclick="hrDocAction('${q.e.id}',${q.di},false)">Send back</button><button class="btn tiny" onclick="hrDocAction('${q.e.id}',${q.di},true)">Verify</button></div></div>`).join(''):`<div class="empty-state"><div class="es-ic">${svg('check')}</div><b>Verification queue clear</b><p>New employee uploads will appear here for your check.</p></div>`}</div>
    <div class="card glass"><h3>Per-employee status</h3><p class="hint">Who's pending what — click to expand</p>
     ${DB.employees.map(e=>{const docs=DB.documents[e.id]||[];const pend=docs.filter(d=>d.status!=='Verified').length;
      return `<div style="border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px">
@@ -2991,7 +3088,7 @@ function renderHDocs(){
    <p class="hint">Employees asked for these — mark ready when prepared.</p>
    ${DB.docRequests.map((r,i)=>`<div class="approw" style="margin-top:12px"><div class="ico b4" style="width:38px;height:38px">${svg('doc')}</div>
     <div style="flex:1"><div style="font-size:13px;font-weight:700">${r.type} · ${emp(r.empId)?emp(r.empId).name:'—'}</div><div style="font-size:11.5px;color:var(--soft)">${r.reason||''} · ${r.ts}</div></div>
-    ${r.status==='Pending'?`<button class="btn tiny" onclick="hrDocReady(${i})">Mark ready</button>`:'<span class="badge st-ok">Ready</span>'}</div>`).join('')||'<div class="kempty" style="height:80px">No letter requests</div>'}</div>`;
+    ${r.status==='Pending'?`<button class="btn tiny" onclick="hrDocReady(${i})">Mark ready</button>`:'<span class="badge st-ok">Ready</span>'}</div>`).join('')||`<div class="empty-state"><div class="es-ic">${svg('doc')}</div><b>No letter requests</b><p>Employee requests for certificates and letters appear here.</p></div>`}</div>`;
  paintIcons(document.getElementById('hdocsWrap'));}
 function hrDocAction(empId,di,ok){const d=DB.documents[empId][di];const e=emp(empId);
  d.status=ok?'Verified':'Rejected';if(!ok)d.note='Sent back — please re-upload a clearer copy';d.ts='now';
@@ -3009,7 +3106,7 @@ function renderHHelp(){
     <div style="flex:1"><div style="font-size:13px;font-weight:700">${t.subject} <span style="font-weight:500;color:var(--soft)">· ${emp(t.empId)?emp(t.empId).name:'—'}</span></div>
      <div style="font-size:12px;color:var(--soft);margin-top:2px">${t.msg}</div>
      ${t.reply?`<div class="note" style="margin-top:8px;font-size:12px"><b>Your reply:</b> ${t.reply}</div>`:`<div class="row" style="gap:8px;margin-top:10px"><input id="rep${i}" placeholder="Type a reply…" style="flex:1;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;background:var(--glass-strong);color:var(--ink);outline:none"/><button class="btn tiny" onclick="hrReply(${i})">Reply & resolve</button></div>`}</div>
-    <span class="badge ${t.status==='Open'?'st-pend':'st-ok'}">${t.status}</span></div>`).join('')||'<div class="kempty" style="height:100px">Inbox zero 🎉</div>'}</div>`;
+    <span class="badge ${t.status==='Open'?'st-pend':'st-ok'}">${t.status}</span></div>`).join('')||`<div class="empty-state"><div class="es-ic">${svg('check')}</div><b>Inbox zero</b><p>Tickets raised by employees or escalated by the assistant land here.</p></div>`}</div>`;
  paintIcons(document.getElementById('hhelpWrap'));}
 function hrReply(i){const v=document.getElementById('rep'+i).value.trim();if(!v){toast('Type a reply first','info');return;}
  DB.tickets[i].reply=v;DB.tickets[i].status='Resolved';saveDB();
